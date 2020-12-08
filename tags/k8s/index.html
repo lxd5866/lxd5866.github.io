@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="zh">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>k8s | 沧海的博客</title>
+    <meta property="og:title" content="k8s - 沧海的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,沧海,xudong,旭东,kubernetes,istio,mesh,service mesh,yaml">
+    <meta name="description" content="k8s">
+        
+    <meta name="author" content="沧海">
+    <meta property="og:url" content="http://blog.xudong.cool/tags/k8s/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <link rel="alternate" type="application/rss+xml+xml" href="http://blog.xudong.cool/tags/k8s/index.xml" title="沧海的博客" />
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://blog.xudong.cool">
+                        沧海的博客
+                    </a>
+                
+                <p class="description">K8s,ServiceMesh</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://blog.xudong.cool">首页</a>
+                    
+                    <a  href="http://blog.xudong.cool/tools/" title="工具">工具</a>
+                    
+                    <a  href="http://blog.xudong.cool/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://blog.xudong.cool/post/about" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    
+    <h3 class="archive-title">
+        包含标签
+        <span class="keyword">k8s</span>
+        的文章
+    </h3>
+    
+
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://blog.xudong.cool/post/202012-12-07-1/">helm3 和 kustomize </a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年12月7日
+        </date>
+        
+        <div class="post-content">
+            helm3 kustomize 背景 之前一直用的时kustomize 管理 yaml，而不太喜欢使用helm，因为感觉它对外对外是一个黑盒，用起来不太放心。 而istio自 1.8 版本开始，重新添加 helm3为默认的管理工具，最近在看的 openkruise 也是使用helm管理，所以还是决定花点时间看一下。……
+            <p class="readmore"><a href="http://blog.xudong.cool/post/202012-12-07-1/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://blog.xudong.cool/post/202012-12-04-1/">git 代理</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年12月4日
+        </date>
+        
+        <div class="post-content">
+            git 代理设置 背景 下载github资源时，会因为墙和dns等原因导致git下载速度感人,游戏体验极差。 分辨需要设置的代理 HTTP 形式： git clone https://github.com/owner/git.git SSH 形式： git clone git@github.com:owner/git.git 一、HTTP 形式 走 HTTP 代理 git config &ndash;global http.proxy &ldquo;http://127.0.0.1:8080&rdquo; git config &ndash;global https.proxy &ldquo;http://127.0.0.1:8080&rdquo; 走 socks5 代理（如 Shadowsocks） git config &ndash;global http.proxy &ldquo;socks5://127.0.0.1:1080&rdquo; git config &ndash;global https.proxy &ldquo;socks5://127.0.0.1:1080&rdquo; 取消设置 git config &ndash;global &ndash;unset http.proxy git config &ndash;global &ndash;unset https.proxy 二、SS……
+            <p class="readmore"><a href="http://blog.xudong.cool/post/202012-12-04-1/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://blog.xudong.cool/post/2012-12-02-1/">minikube 加速</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年12月2日
+        </date>
+        
+        <div class="post-content">
+            minikube 使用 &amp; 加速 背景 minikibe 是由谷歌官方的，k8s本地模拟环境，主要用作 k8s 的环境测试工作。 minikube implements a local Kubernetes cluster on macOS, Linux, and Windows. minikube's primary goals are to be the best tool for local Kubernetes application development and to support all Kubernetes features that fit. 安装 brew install minikube brew 可以使用清华源加速 使用 一般情况下 1 2 3 4 5 6 7 //加速，建议使用自己的加速起，不推荐使用阿里源 //速度由梯子决定 export HTTP_PROXY=http://127.0.0.1:58591 export HTTPS_PROXY=http://127.0.0.1:5859 export……
+            <p class="readmore"><a href="http://blog.xudong.cool/post/2012-12-02-1/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://blog.xudong.cool/post/2020-11-24-1/">使用zap接收gin框架默认的日志并配置日志归档</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年11月24日
+        </date>
+        
+        <div class="post-content">
+            | Golang 本文介绍了在基于gin框架开发的项目中如何配置并使用zap来接收并记录gin框架默认的日志和如何配置日志归档。 我们在基于gin框架开发项目时通常都会选择使用专业的日志库来记录项目中的日志，go语言常用的日志库有zap、logrus等。网上也有很多类似的教程，我之前也翻译过一篇……
+            <p class="readmore"><a href="http://blog.xudong.cool/post/2020-11-24-1/">阅读全文</a></p>
+        </div>
+    </article>
+    
+
+    
+
+
+
+
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2020 <a href="http://blog.xudong.cool">沧海的博客 By 沧海</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://blog.xudong.cool/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://blog.xudong.cool">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://blog.xudong.cool/post/202012-12-07-1/" title="helm3 和 kustomize ">helm3 和 kustomize </a>
+    </li>
+    
+    <li>
+        <a href="http://blog.xudong.cool/post/202012-12-04-1/" title="git 代理">git 代理</a>
+    </li>
+    
+    <li>
+        <a href="http://blog.xudong.cool/post/2012-12-02-1/" title="minikube 加速">minikube 加速</a>
+    </li>
+    
+    <li>
+        <a href="http://blog.xudong.cool/post/2020-11-24-1/" title="使用zap接收gin框架默认的日志并配置日志归档">使用zap接收gin框架默认的日志并配置日志归档</a>
+    </li>
+    
+    <li>
+        <a href="http://blog.xudong.cool/post/about/" title="关于">关于</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://blog.xudong.cool/tags/Golang/">Golang</a>
+    
+    <a href="http://blog.xudong.cool/tags/k8s/">k8s</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://blog.xudong.cool/" title="沧海的博客">沧海的博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://blog.xudong.cool/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
