@@ -18,12 +18,12 @@
     <meta name="description" content="k8s">
         
     <meta name="author" content="沧海">
-    <meta property="og:url" content="http://blog.xudong.cool/tags/k8s/">
+    <meta property="og:url" content="https://lxd5866.github.io/tags/k8s/">
     <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <link rel="alternate" type="application/rss+xml+xml" href="http://blog.xudong.cool/tags/k8s/index.xml" title="沧海的博客" />
+    <link rel="alternate" type="application/rss+xml+xml" href="https://lxd5866.github.io/tags/k8s/index.xml" title="沧海的博客" />
     <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
@@ -41,7 +41,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.xudong.cool">
+                    <a id="logo" href="https://lxd5866.github.io/">
                         沧海的博客
                     </a>
                 
@@ -49,13 +49,9 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://blog.xudong.cool">首页</a>
+                    <a class="" href="https://lxd5866.github.io/">首页</a>
                     
-                    <a  href="http://blog.xudong.cool/tools/" title="工具">工具</a>
-                    
-                    <a  href="http://blog.xudong.cool/archives/" title="归档">归档</a>
-                    
-                    <a  href="http://blog.xudong.cool/post/about" title="关于">关于</a>
+                    <a  href="https://lxd5866.github.io/post/about" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -82,39 +78,76 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://blog.xudong.cool/post/202012-12-07-1/">helm3 和 kustomize </a>
+                <a href="https://lxd5866.github.io/post/2020-12-07-1/">helm3 和 kustomize </a>
             </h1>
         </header>
         <date class="post-meta meta-date">
             2020年12月7日
         </date>
         
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/k8s'>k8s</a>
+            
+        </div>
+        
         <div class="post-content">
             helm3 kustomize 背景 之前一直用的时kustomize 管理 yaml，而不太喜欢使用helm，因为感觉它对外对外是一个黑盒，用起来不太放心。 而istio自 1.8 版本开始，重新添加 helm3为默认的管理工具，最近在看的 openkruise 也是使用helm管理，所以还是决定花点时间看一下。……
-            <p class="readmore"><a href="http://blog.xudong.cool/post/202012-12-07-1/">阅读全文</a></p>
+            <p class="readmore"><a href="https://lxd5866.github.io/post/2020-12-07-1/">阅读全文</a></p>
         </div>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://blog.xudong.cool/post/202012-12-04-1/">git 代理</a>
+                <a href="https://lxd5866.github.io/post/2020-12-09-1/">k8s Docker Runtime架构</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年12月7日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/k8s'>k8s</a>
+            
+        </div>
+        
+        <div class="post-content">
+            背景 k8s 1.20 release note中有个改变的针对Dockershim的，自这个版本起不在推荐使用docker做runtime。 Docker as an underlying runtime is being deprecated. Docker-produced images will continue to work in your cluster with all runtimes, as they always have. The Kubernetes community has written a blog post about this in detail with a dedicated FAQ page for it. 所以详细了解了一下 Dockershim 的历史。 本文链接：https://blog.csdn.net/……
+            <p class="readmore"><a href="https://lxd5866.github.io/post/2020-12-09-1/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://lxd5866.github.io/post/2020-12-04-1/">git 代理</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
             2020年12月4日
         </date>
         
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/k8s'>k8s</a>
+            
+        </div>
+        
         <div class="post-content">
             git 代理设置 背景 下载github资源时，会因为墙和dns等原因导致git下载速度感人,游戏体验极差。 分辨需要设置的代理 HTTP 形式： git clone https://github.com/owner/git.git SSH 形式： git clone git@github.com:owner/git.git 一、HTTP 形式 走 HTTP 代理 git config &ndash;global http.proxy &ldquo;http://127.0.0.1:8080&rdquo; git config &ndash;global https.proxy &ldquo;http://127.0.0.1:8080&rdquo; 走 socks5 代理（如 Shadowsocks） git config &ndash;global http.proxy &ldquo;socks5://127.0.0.1:1080&rdquo; git config &ndash;global https.proxy &ldquo;socks5://127.0.0.1:1080&rdquo; 取消设置 git config &ndash;global &ndash;unset http.proxy git config &ndash;global &ndash;unset https.proxy 二、SS……
-            <p class="readmore"><a href="http://blog.xudong.cool/post/202012-12-04-1/">阅读全文</a></p>
+            <p class="readmore"><a href="https://lxd5866.github.io/post/2020-12-04-1/">阅读全文</a></p>
         </div>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://blog.xudong.cool/post/2012-12-02-1/">minikube 加速</a>
+                <a href="https://lxd5866.github.io/post/2020-12-02-1/">minikube 加速</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -123,14 +156,14 @@
         
         <div class="post-content">
             minikube 使用 &amp; 加速 背景 minikibe 是由谷歌官方的，k8s本地模拟环境，主要用作 k8s 的环境测试工作。 minikube implements a local Kubernetes cluster on macOS, Linux, and Windows. minikube's primary goals are to be the best tool for local Kubernetes application development and to support all Kubernetes features that fit. 安装 brew install minikube brew 可以使用清华源加速 使用 一般情况下 1 2 3 4 5 6 7 //加速，建议使用自己的加速起，不推荐使用阿里源 //速度由梯子决定 export HTTP_PROXY=http://127.0.0.1:58591 export HTTPS_PROXY=http://127.0.0.1:5859 export……
-            <p class="readmore"><a href="http://blog.xudong.cool/post/2012-12-02-1/">阅读全文</a></p>
+            <p class="readmore"><a href="https://lxd5866.github.io/post/2020-12-02-1/">阅读全文</a></p>
         </div>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://blog.xudong.cool/post/2020-11-24-1/">使用zap接收gin框架默认的日志并配置日志归档</a>
+                <a href="https://lxd5866.github.io/post/2020-11-24-1/">使用zap接收gin框架默认的日志并配置日志归档</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -139,7 +172,7 @@
         
         <div class="post-content">
             | Golang 本文介绍了在基于gin框架开发的项目中如何配置并使用zap来接收并记录gin框架默认的日志和如何配置日志归档。 我们在基于gin框架开发项目时通常都会选择使用专业的日志库来记录项目中的日志，go语言常用的日志库有zap、logrus等。网上也有很多类似的教程，我之前也翻译过一篇……
-            <p class="readmore"><a href="http://blog.xudong.cool/post/2020-11-24-1/">阅读全文</a></p>
+            <p class="readmore"><a href="https://lxd5866.github.io/post/2020-11-24-1/">阅读全文</a></p>
         </div>
     </article>
     
@@ -154,7 +187,7 @@
 
                     <footer id="footer">
     <div>
-        &copy; 2020 <a href="http://blog.xudong.cool">沧海的博客 By 沧海</a>
+        &copy; 2020 <a href="https://lxd5866.github.io/">沧海的博客 By 沧海</a>
         
     </div>
     <br />
@@ -187,10 +220,10 @@
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='http://blog.xudong.cool/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://lxd5866.github.io/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
-      <input type="hidden" name="sitesearch" value="http://blog.xudong.cool">
+      <input type="hidden" name="sitesearch" value="https://lxd5866.github.io/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -200,23 +233,31 @@
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.xudong.cool/post/202012-12-07-1/" title="helm3 和 kustomize ">helm3 和 kustomize </a>
+        <a href="https://lxd5866.github.io/post/2020-12-09-3/" title="Go插件plugin">Go插件plugin</a>
     </li>
     
     <li>
-        <a href="http://blog.xudong.cool/post/202012-12-04-1/" title="git 代理">git 代理</a>
+        <a href="https://lxd5866.github.io/post/2020-12-07-1/" title="helm3 和 kustomize ">helm3 和 kustomize </a>
     </li>
     
     <li>
-        <a href="http://blog.xudong.cool/post/2012-12-02-1/" title="minikube 加速">minikube 加速</a>
+        <a href="https://lxd5866.github.io/post/2020-12-09-1/" title="k8s Docker Runtime架构">k8s Docker Runtime架构</a>
     </li>
     
     <li>
-        <a href="http://blog.xudong.cool/post/2020-11-24-1/" title="使用zap接收gin框架默认的日志并配置日志归档">使用zap接收gin框架默认的日志并配置日志归档</a>
+        <a href="https://lxd5866.github.io/post/2020-12-04-1/" title="git 代理">git 代理</a>
     </li>
     
     <li>
-        <a href="http://blog.xudong.cool/post/about/" title="关于">关于</a>
+        <a href="https://lxd5866.github.io/post/2020-12-02-1/" title="minikube 加速">minikube 加速</a>
+    </li>
+    
+    <li>
+        <a href="https://lxd5866.github.io/post/2020-11-24-1/" title="使用zap接收gin框架默认的日志并配置日志归档">使用zap接收gin框架默认的日志并配置日志归档</a>
+    </li>
+    
+    <li>
+        <a href="https://lxd5866.github.io/post/about/" title="关于">关于</a>
     </li>
     
 </ul>
@@ -228,6 +269,10 @@
         <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
+    <li><a href="https://lxd5866.github.io/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://lxd5866.github.io/categories/k8s/">k8s (3)</a></li>
+    
 </ul>
     </section>
 
@@ -235,9 +280,19 @@
         <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
-    <a href="http://blog.xudong.cool/tags/Golang/">Golang</a>
+    <a href="https://lxd5866.github.io/tags/CNI/">CNI</a>
     
-    <a href="http://blog.xudong.cool/tags/k8s/">k8s</a>
+    <a href="https://lxd5866.github.io/tags/CRI/">CRI</a>
+    
+    <a href="https://lxd5866.github.io/tags/Golang/">Golang</a>
+    
+    <a href="https://lxd5866.github.io/tags/docker/">docker</a>
+    
+    <a href="https://lxd5866.github.io/tags/go-plugin/">go-plugin</a>
+    
+    <a href="https://lxd5866.github.io/tags/k8s/">k8s</a>
+    
+    <a href="https://lxd5866.github.io/tags/plugn/">plugn</a>
     
 </div>
     </section>
@@ -258,7 +313,7 @@
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a href="http://blog.xudong.cool/index.xml">文章 RSS</a></li>
+            <li><a href="https://lxd5866.github.io/index.xml">文章 RSS</a></li>
         </ul>
     </section>
 </div>

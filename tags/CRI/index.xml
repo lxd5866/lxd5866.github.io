@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CRI on 沧海的博客</title>
+    <link>https://lxd5866.github.io/tags/CRI/</link>
+    <description>Recent content in CRI on 沧海的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Mon, 07 Dec 2020 19:36:45 +0800</lastBuildDate><atom:link href="https://lxd5866.github.io/tags/CRI/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>k8s Docker Runtime架构</title>
+      <link>https://lxd5866.github.io/post/2020-12-09-1/</link>
+      <pubDate>Mon, 07 Dec 2020 19:36:45 +0800</pubDate>
+      
+      <guid>https://lxd5866.github.io/post/2020-12-09-1/</guid>
+      <description>背景 k8s 1.20 release note中有个改变的针对Dockershim的，自这个版本起不在推荐使用docker做runtime。 Docker as an underlying runtime is being deprecated. Docker-produced images will continue to work in your cluster with all runtimes, as they always have. The Kubernetes community has written a blog post about this in detail with a dedicated FAQ page for it. 所以详细了解了一下 Dockershim 的历史。 本文链接：https://blog.csdn.net/</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -2,26 +2,71 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on 沧海的博客</title>
-    <link>http://blog.xudong.cool/tags/</link>
+    <link>https://lxd5866.github.io/tags/</link>
     <description>Recent content in Tags on 沧海的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 07 Dec 2020 19:36:45 +0800</lastBuildDate><atom:link href="http://blog.xudong.cool/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 09 Dec 2020 21:47:11 +0800</lastBuildDate><atom:link href="https://lxd5866.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>go-plugin</title>
+      <link>https://lxd5866.github.io/tags/go-plugin/</link>
+      <pubDate>Wed, 09 Dec 2020 21:47:11 +0800</pubDate>
+      
+      <guid>https://lxd5866.github.io/tags/go-plugin/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Golang</title>
-      <link>http://blog.xudong.cool/tags/Golang/</link>
+      <link>https://lxd5866.github.io/tags/Golang/</link>
+      <pubDate>Wed, 09 Dec 2020 21:47:11 +0800</pubDate>
+      
+      <guid>https://lxd5866.github.io/tags/Golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>plugn</title>
+      <link>https://lxd5866.github.io/tags/plugn/</link>
+      <pubDate>Wed, 09 Dec 2020 21:47:11 +0800</pubDate>
+      
+      <guid>https://lxd5866.github.io/tags/plugn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CNI</title>
+      <link>https://lxd5866.github.io/tags/CNI/</link>
       <pubDate>Mon, 07 Dec 2020 19:36:45 +0800</pubDate>
       
-      <guid>http://blog.xudong.cool/tags/Golang/</guid>
+      <guid>https://lxd5866.github.io/tags/CNI/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CRI</title>
+      <link>https://lxd5866.github.io/tags/CRI/</link>
+      <pubDate>Mon, 07 Dec 2020 19:36:45 +0800</pubDate>
+      
+      <guid>https://lxd5866.github.io/tags/CRI/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://lxd5866.github.io/tags/docker/</link>
+      <pubDate>Mon, 07 Dec 2020 19:36:45 +0800</pubDate>
+      
+      <guid>https://lxd5866.github.io/tags/docker/</guid>
       <description></description>
     </item>
     
     <item>
       <title>k8s</title>
-      <link>http://blog.xudong.cool/tags/k8s/</link>
+      <link>https://lxd5866.github.io/tags/k8s/</link>
       <pubDate>Mon, 07 Dec 2020 19:36:45 +0800</pubDate>
       
-      <guid>http://blog.xudong.cool/tags/k8s/</guid>
+      <guid>https://lxd5866.github.io/tags/k8s/</guid>
       <description></description>
     </item>
     

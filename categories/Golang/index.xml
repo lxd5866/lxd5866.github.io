@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golang on 沧海的博客</title>
+    <link>https://lxd5866.github.io/categories/Golang/</link>
+    <description>Recent content in Golang on 沧海的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Wed, 09 Dec 2020 21:47:11 +0800</lastBuildDate><atom:link href="https://lxd5866.github.io/categories/Golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go插件plugin</title>
+      <link>https://lxd5866.github.io/post/2020-12-09-3/</link>
+      <pubDate>Wed, 09 Dec 2020 21:47:11 +0800</pubDate>
+      
+      <guid>https://lxd5866.github.io/post/2020-12-09-3/</guid>
+      <description>Go插件plugin 背景 项目需要在不给项目源码的情况下，给三方做拓展。实现方案是通过配置，加载plugin，调用约定好的方法实现特定的业务场景 原文地址 1. Go plugin是什么 Go 1.8版本开始提供了一个创建共享库的新工具,称为 Plugins. A plugin is a Go main package with exported functions and variables that has been built with: go build -buildmode=plugin Plugin插件</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -9,20 +9,20 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
     
 
-    <title>git 代理 | 沧海的博客</title>
-    <meta property="og:title" content="git 代理 - 沧海的博客">
+    <title>minikube 加速 | 沧海的博客</title>
+    <meta property="og:title" content="minikube 加速 - 沧海的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content='2020-12-04T00:37:55&#43;08:00'>
+    <meta property="article:published_time" content='2020-12-02T01:08:50&#43;08:00'>
         
         
-    <meta property="article:modified_time" content='2020-12-04T00:37:55&#43;08:00'>
+    <meta property="article:modified_time" content='2020-12-02T01:08:50&#43;08:00'>
         
     <meta name="Keywords" content="golang,go语言,go语言笔记,沧海,xudong,旭东,kubernetes,istio,mesh,service mesh,yaml">
-    <meta name="description" content="git 代理">
+    <meta name="description" content="minikube 加速">
         
     <meta name="author" content="沧海">
-    <meta property="og:url" content="http://blog.xudong.cool/post/202012-12-04-1/">
+    <meta property="og:url" content="https://lxd5866.github.io/post/2020-12-02-1/">
     <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.xudong.cool">
+                    <a id="logo" href="https://lxd5866.github.io/">
                         沧海的博客
                     </a>
                 
@@ -52,13 +52,9 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="current" href="http://blog.xudong.cool">首页</a>
+                    <a class="current" href="https://lxd5866.github.io/">首页</a>
                     
-                    <a  href="http://blog.xudong.cool/tools/" title="工具">工具</a>
-                    
-                    <a  href="http://blog.xudong.cool/archives/" title="归档">归档</a>
-                    
-                    <a  href="http://blog.xudong.cool/post/about" title="关于">关于</a>
+                    <a  href="https://lxd5866.github.io/post/about" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -139,17 +135,11 @@
     <div class="post-toc-content">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#git-代理设置">git 代理设置</a>
+    <li><a href="#minikube--使用--加速">minikube  使用 &amp; 加速</a>
       <ul>
         <li></li>
       </ul>
     </li>
-    <li><a href="#一http-形式">一、HTTP 形式</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#二ssh-形式">二、SSH 形式</a></li>
   </ul>
 </nav>
     </div>
@@ -183,10 +173,10 @@
 </script>
     <article class="post">
         <header>
-            <h1 class="post-title">git 代理</h1>
+            <h1 class="post-title">minikube 加速</h1>
         </header>
         <date class="post-meta meta-date">
-            2020年12月4日
+            2020年12月2日
         </date>
         
         
@@ -197,46 +187,38 @@
         
         
         <div class="post-content">
-            <h2 id="git-代理设置">git 代理设置</h2>
+            <h2 id="minikube--使用--加速">minikube  使用 &amp; 加速</h2>
 <h4 id="背景">背景</h4>
-<p>下载github资源时，会因为墙和dns等原因导致git下载速度感人,游戏体验极差。</p>
-<p>
-        <img class="mx-auto" alt="下载速度" src="./../../images/posts/202012-12-04-1/WX20201204-004557@2x.png" />   
-    </p>
-<h4 id="分辨需要设置的代理">分辨需要设置的代理</h4>
-<ul>
-<li>HTTP 形式：</li>
-</ul>
-<blockquote>
-<p>git clone <a href="https://github.com/owner/git.git">https://github.com/owner/git.git</a></p>
-</blockquote>
-<ul>
-<li>SSH 形式：</li>
-</ul>
-<blockquote>
-<p>git clone <a href="mailto:git@github.com">git@github.com</a>:owner/git.git</p>
-</blockquote>
-<h2 id="一http-形式">一、HTTP 形式</h2>
-<p>走 HTTP 代理
-git config &ndash;global http.proxy &ldquo;http://127.0.0.1:8080&rdquo;
-git config &ndash;global https.proxy &ldquo;http://127.0.0.1:8080&rdquo;</p>
-<h4 id="走-socks5-代理如-shadowsocks">走 socks5 代理（如 Shadowsocks）</h4>
-<p>git config &ndash;global http.proxy &ldquo;socks5://127.0.0.1:1080&rdquo;
-git config &ndash;global https.proxy &ldquo;socks5://127.0.0.1:1080&rdquo;</p>
-<h4 id="取消设置">取消设置</h4>
-<p>git config &ndash;global &ndash;unset http.proxy
-git config &ndash;global &ndash;unset https.proxy</p>
-<h2 id="二ssh-形式">二、SSH 形式</h2>
-<p>修改 ~/.ssh/config 文件（不存在则新建）：</p>
-<h1 id="必须是-githubcom">必须是 github.com</h1>
-<pre><code>Host github.com
-   HostName github.com
-   User git
-   # 走 HTTP 代理
-   # ProxyCommand socat - PROXY:127.0.0.1:%h:%p,proxyport=8080
-   # 走 socks5 代理（如 Shadowsocks）
-   # ProxyCommand nc -v -x 127.0.0.1:1080 %h %p
-</code></pre>
+<p><a href="https://github.com/kubernetes/minikube">minikibe</a> 是由谷歌官方的，k8s本地模拟环境，主要用作 k8s 的环境测试工作。</p>
+<pre><code>minikube implements a local Kubernetes cluster on macOS, Linux, and Windows. minikube's primary goals are to be the best tool for local Kubernetes application development and to support all Kubernetes features that fit.
+</code></pre><h4 id="安装">安装</h4>
+<pre><code>brew install minikube
+</code></pre><p>brew 可以使用清华源加速</p>
+<h4 id="使用">使用</h4>
+<p>一般情况下</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">//加速，建议使用自己的加速起，不推荐使用阿里源
+//速度由梯子决定
+<span style="color:#0086b3">export</span> <span style="color:#008080">HTTP_PROXY</span><span style="color:#000;font-weight:bold">=</span>http://127.0.0.1:58591
+<span style="color:#0086b3">export</span> <span style="color:#008080">HTTPS_PROXY</span><span style="color:#000;font-weight:bold">=</span>http://127.0.0.1:5859
+<span style="color:#0086b3">export</span> <span style="color:#008080">NO_PROXY</span><span style="color:#000;font-weight:bold">=</span>localhost,127.0.0.1,10.96.0.0/12,192.168.99.0/24,192.168.39.0/24
+//启动
+minikube start <span style="color:#008080">driver</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;hyperkit&#39;</span> --cpus<span style="color:#000;font-weight:bold">=</span><span style="color:#099">2</span> --memory<span style="color:#000;font-weight:bold">=</span>4G
+</code></pre></td></tr></table>
+</div>
+</div><p><a href="https://minikube.sigs.k8s.io/docs/handbook/controls/">minikube 官方参考文档</a></p>
+<p><a href="https://minikube.sigs.k8s.io/docs/handbook/vpn_and_proxy/">minikube proxy 文档</a></p>
+
         </div>
 
         
@@ -247,8 +229,6 @@ git config &ndash;global &ndash;unset https.proxy</p>
 <div class="post-archive">
     <h2>See Also</h2>
     <ul class="listing">
-        
-        <li><a href="/post/2012-12-02-1/">minikube 加速</a></li>
         
         <li><a href="/post/2020-11-24-1/">使用zap接收gin框架默认的日志并配置日志归档</a></li>
         
@@ -298,7 +278,7 @@ git config &ndash;global &ndash;unset https.proxy</p>
 
                     <footer id="footer">
     <div>
-        &copy; 2020 <a href="http://blog.xudong.cool">沧海的博客 By 沧海</a>
+        &copy; 2020 <a href="https://lxd5866.github.io/">沧海的博客 By 沧海</a>
         
     </div>
     <br />
@@ -341,10 +321,10 @@ git config &ndash;global &ndash;unset https.proxy</p>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='http://blog.xudong.cool/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://lxd5866.github.io/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
-      <input type="hidden" name="sitesearch" value="http://blog.xudong.cool">
+      <input type="hidden" name="sitesearch" value="https://lxd5866.github.io/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -354,23 +334,31 @@ git config &ndash;global &ndash;unset https.proxy</p>
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.xudong.cool/post/202012-12-07-1/" title="helm3 和 kustomize ">helm3 和 kustomize </a>
+        <a href="https://lxd5866.github.io/post/2020-12-09-3/" title="Go插件plugin">Go插件plugin</a>
     </li>
     
     <li>
-        <a href="http://blog.xudong.cool/post/202012-12-04-1/" title="git 代理">git 代理</a>
+        <a href="https://lxd5866.github.io/post/2020-12-07-1/" title="helm3 和 kustomize ">helm3 和 kustomize </a>
     </li>
     
     <li>
-        <a href="http://blog.xudong.cool/post/2012-12-02-1/" title="minikube 加速">minikube 加速</a>
+        <a href="https://lxd5866.github.io/post/2020-12-09-1/" title="k8s Docker Runtime架构">k8s Docker Runtime架构</a>
     </li>
     
     <li>
-        <a href="http://blog.xudong.cool/post/2020-11-24-1/" title="使用zap接收gin框架默认的日志并配置日志归档">使用zap接收gin框架默认的日志并配置日志归档</a>
+        <a href="https://lxd5866.github.io/post/2020-12-04-1/" title="git 代理">git 代理</a>
     </li>
     
     <li>
-        <a href="http://blog.xudong.cool/post/about/" title="关于">关于</a>
+        <a href="https://lxd5866.github.io/post/2020-12-02-1/" title="minikube 加速">minikube 加速</a>
+    </li>
+    
+    <li>
+        <a href="https://lxd5866.github.io/post/2020-11-24-1/" title="使用zap接收gin框架默认的日志并配置日志归档">使用zap接收gin框架默认的日志并配置日志归档</a>
+    </li>
+    
+    <li>
+        <a href="https://lxd5866.github.io/post/about/" title="关于">关于</a>
     </li>
     
 </ul>
@@ -382,6 +370,10 @@ git config &ndash;global &ndash;unset https.proxy</p>
         <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
+    <li><a href="https://lxd5866.github.io/categories/Golang/">Golang (1)</a></li>
+    
+    <li><a href="https://lxd5866.github.io/categories/k8s/">k8s (3)</a></li>
+    
 </ul>
     </section>
 
@@ -389,9 +381,19 @@ git config &ndash;global &ndash;unset https.proxy</p>
         <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
-    <a href="http://blog.xudong.cool/tags/Golang/">Golang</a>
+    <a href="https://lxd5866.github.io/tags/CNI/">CNI</a>
     
-    <a href="http://blog.xudong.cool/tags/k8s/">k8s</a>
+    <a href="https://lxd5866.github.io/tags/CRI/">CRI</a>
+    
+    <a href="https://lxd5866.github.io/tags/Golang/">Golang</a>
+    
+    <a href="https://lxd5866.github.io/tags/docker/">docker</a>
+    
+    <a href="https://lxd5866.github.io/tags/go-plugin/">go-plugin</a>
+    
+    <a href="https://lxd5866.github.io/tags/k8s/">k8s</a>
+    
+    <a href="https://lxd5866.github.io/tags/plugn/">plugn</a>
     
 </div>
     </section>
@@ -412,7 +414,7 @@ git config &ndash;global &ndash;unset https.proxy</p>
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a href="http://blog.xudong.cool/index.xml">文章 RSS</a></li>
+            <li><a href="https://lxd5866.github.io/index.xml">文章 RSS</a></li>
         </ul>
     </section>
 </div>

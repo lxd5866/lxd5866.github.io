@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Golang on 沧海的博客</title>
-    <link>https://lxd5866.github.io/tags/Golang/</link>
-    <description>Recent content in Golang on 沧海的博客</description>
+    <title>k8s on 沧海的博客</title>
+    <link>https://lxd5866.github.io/categories/k8s/</link>
+    <description>Recent content in k8s on 沧海的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 09 Dec 2020 21:47:11 +0800</lastBuildDate><atom:link href="https://lxd5866.github.io/tags/Golang/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Go插件plugin</title>
-      <link>https://lxd5866.github.io/post/2020-12-09-3/</link>
-      <pubDate>Wed, 09 Dec 2020 21:47:11 +0800</pubDate>
-      
-      <guid>https://lxd5866.github.io/post/2020-12-09-3/</guid>
-      <description>Go插件plugin 背景 项目需要在不给项目源码的情况下，给三方做拓展。实现方案是通过配置，加载plugin，调用约定好的方法实现特定的业务场景 原文地址 1. Go plugin是什么 Go 1.8版本开始提供了一个创建共享库的新工具,称为 Plugins. A plugin is a Go main package with exported functions and variables that has been built with: go build -buildmode=plugin Plugin插件</description>
-    </item>
-    
+    <lastBuildDate>Mon, 07 Dec 2020 19:36:45 +0800</lastBuildDate><atom:link href="https://lxd5866.github.io/categories/k8s/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>helm3 和 kustomize </title>
       <link>https://lxd5866.github.io/post/2020-12-07-1/</link>
@@ -41,24 +32,6 @@
       
       <guid>https://lxd5866.github.io/post/2020-12-04-1/</guid>
       <description>git 代理设置 背景 下载github资源时，会因为墙和dns等原因导致git下载速度感人,游戏体验极差。 分辨需要设置的代理 HTTP 形式： git clone https://github.com/owner/git.git SSH 形式： git clone git@github.com:owner/git.git 一、HTTP 形式 走 HTTP 代理 git config &amp;ndash;global http.proxy &amp;ldquo;http://127.0.0.1:8080&amp;rdquo; git config &amp;ndash;global https.proxy &amp;ldquo;http://127.0.0.1:8080&amp;rdquo; 走 socks5 代理（如 Shadowsocks） git config &amp;ndash;global http.proxy &amp;ldquo;socks5://127.0.0.1:1080&amp;rdquo; git config &amp;ndash;global https.proxy &amp;ldquo;socks5://127.0.0.1:1080&amp;rdquo; 取消设置 git config &amp;ndash;global &amp;ndash;unset http.proxy git config &amp;ndash;global &amp;ndash;unset https.proxy 二、SS</description>
-    </item>
-    
-    <item>
-      <title>minikube 加速</title>
-      <link>https://lxd5866.github.io/post/2020-12-02-1/</link>
-      <pubDate>Wed, 02 Dec 2020 01:08:50 +0800</pubDate>
-      
-      <guid>https://lxd5866.github.io/post/2020-12-02-1/</guid>
-      <description>minikube 使用 &amp;amp; 加速 背景 minikibe 是由谷歌官方的，k8s本地模拟环境，主要用作 k8s 的环境测试工作。 minikube implements a local Kubernetes cluster on macOS, Linux, and Windows. minikube&#39;s primary goals are to be the best tool for local Kubernetes application development and to support all Kubernetes features that fit. 安装 brew install minikube brew 可以使用清华源加速 使用 一般情况下 1 2 3 4 5 6 7 //加速，建议使用自己的加速起，不推荐使用阿里源 //速度由梯子决定 export HTTP_PROXY=http://127.0.0.1:58591 export HTTPS_PROXY=http://127.0.0.1:5859 export</description>
-    </item>
-    
-    <item>
-      <title>使用zap接收gin框架默认的日志并配置日志归档</title>
-      <link>https://lxd5866.github.io/post/2020-11-24-1/</link>
-      <pubDate>Tue, 24 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://lxd5866.github.io/post/2020-11-24-1/</guid>
-      <description>| Golang 本文介绍了在基于gin框架开发的项目中如何配置并使用zap来接收并记录gin框架默认的日志和如何配置日志归档。 我们在基于gin框架开发项目时通常都会选择使用专业的日志库来记录项目中的日志，go语言常用的日志库有zap、logrus等。网上也有很多类似的教程，我之前也翻译过一篇</description>
     </item>
     
   </channel>
