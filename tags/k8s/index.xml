@@ -40,7 +40,7 @@
       <pubDate>Wed, 02 Dec 2020 01:08:50 +0800</pubDate>
       
       <guid>https://lxd5866.github.io/post/2020-12-02-1/</guid>
-      <description>minikube 使用 &amp;amp; 加速 背景 minikibe 是由谷歌官方的，k8s本地模拟环境，主要用作 k8s 的环境测试工作。 minikube implements a local Kubernetes cluster on macOS, Linux, and Windows. minikube&#39;s primary goals are to be the best tool for local Kubernetes application development and to support all Kubernetes features that fit. 安装 brew install minikube brew 可以使用清华源加速 使用 一般情况下 1 2 3 4 5 6 7 //加速，建议使用自己的加速起，不推荐使用阿里源 //速度由梯子决定 export HTTP_PROXY=http://127.0.0.1:58591 export HTTPS_PROXY=http://127.0.0.1:5859 export</description>
+      <description>minikube 使用 &amp;amp; 加速 背景 minikibe 是由谷歌官方的，k8s本地模拟环境，主要用作 k8s 的环境测试工作。 minikube implements a local Kubernetes cluster on macOS, Linux, and Windows. minikube&#39;s primary goals are to be the best tool for local Kubernetes application development and to support all Kubernetes features that fit. 安装 brew install minikube brew 可以使用清华源加速 使用 一般情况下 1 2 3 4 5 6 7 //加速，建议使用自己的加速起，不推荐使用阿里源 //速度由梯子决定 export HTTP_PROXY=http://127.0.0.1:20880 export HTTPS_PROXY=http://127.0.0.1:20880 export</description>
     </item>
     
     <item>

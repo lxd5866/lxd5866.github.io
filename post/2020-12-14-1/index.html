@@ -9,20 +9,20 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
     
 
-    <title>helm3 和 kustomize  | 沧海的博客</title>
-    <meta property="og:title" content="helm3 和 kustomize  - 沧海的博客">
+    <title>Envoy proto 生成 go-control-plane | 沧海的博客</title>
+    <meta property="og:title" content="Envoy proto 生成 go-control-plane - 沧海的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content='2020-12-07T19:36:45&#43;08:00'>
+    <meta property="article:published_time" content='2020-12-14T15:00:28&#43;08:00'>
         
         
-    <meta property="article:modified_time" content='2020-12-07T19:36:45&#43;08:00'>
+    <meta property="article:modified_time" content='2020-12-14T15:00:28&#43;08:00'>
         
     <meta name="Keywords" content="golang,go语言,go语言笔记,沧海,xudong,旭东,kubernetes,istio,mesh,service mesh,yaml">
-    <meta name="description" content="helm3 和 kustomize ">
+    <meta name="description" content="Envoy proto 生成 go-control-plane">
         
     <meta name="author" content="沧海">
-    <meta property="og:url" content="https://lxd5866.github.io/post/2020-12-07-1/">
+    <meta property="og:url" content="https://lxd5866.github.io/post/2020-12-14-1/">
     <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
@@ -133,11 +133,7 @@
 <div class="post-toc" style="position: absolute; top: 188px;">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-        <nav id="TableOfContents">
-  <ul>
-    <li><a href="#背景">背景</a></li>
-  </ul>
-</nav>
+        <nav id="TableOfContents"></nav>
     </div>
 </div>
 <script type="text/javascript">
@@ -169,16 +165,16 @@
 </script>
     <article class="post">
         <header>
-            <h1 class="post-title">helm3 和 kustomize </h1>
+            <h1 class="post-title">Envoy proto 生成 go-control-plane</h1>
         </header>
         <date class="post-meta meta-date">
-            2020年12月7日
+            2020年12月14日
         </date>
         
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='/categories/k8s'>k8s</a></span>
+            <span class="meta-category"><a href='/categories/Golang'>Golang</a></span>
             
         </div>
         
@@ -190,12 +186,21 @@
         
         
         <div class="post-content">
-            <h1 id="helm3--kustomize">helm3  kustomize</h1>
-<h2 id="背景">背景</h2>
-<p>之前一直用的时kustomize 管理 yaml，而不太喜欢使用helm，因为感觉它对外对外是一个黑盒，用起来不太放心。
-而istio自 1.8 版本开始，重新添加 helm3为默认的管理工具，最近在看的
-<a href="https://openkruise.io/zh-cn/">openkruise</a>
-也是使用helm管理，所以还是决定花点时间看一下。</p>
+            <p>背景
+envoy proto 生成依赖bazel 等工具，需要从google code仓库拉代码，国内编译比较麻烦，
+所以cache了构建bazel 环境需要的基础镜像，方便proto生成，免得每次都要从头安装依赖，节省时间，提高效率。</p>
+<p>makefile</p>
+<pre><code>FROM envoyproxy/envoy-build-ubuntu:c666a8ebe472c66038fd07772ab96ed48e621883
+RUN git clone https://github.com/envoyproxy/envoy source &amp;&amp; \
+        cd /source &amp;&amp; \
+        git checkout c0ab3a4374144728c1e193fc2d43951ed36ccdb7
+RUN ./tools/api/generate_go_protobuf.py || true
+WORKDIR /source
+</code></pre><p>打包好的docker image</p>
+<pre><code>registry.cn-hangzhou.aliyuncs.com/lxd/envoy-generate-cache:v1
+</code></pre><p>用法
+//需要在envoy更目录运行
+docker run &ndash;rm -it -v $PWD:/source/ -w /source registry.cn-hangzhou.aliyuncs.com/lxd/envoy-generate-cache:v1 ./tools/api/generate_go_protobuf.py</p>
 
         </div>
 
@@ -208,15 +213,15 @@
     <h2>See Also</h2>
     <ul class="listing">
         
+        <li><a href="/post/2020-12-09-3/">Go插件plugin</a></li>
+        
+        <li><a href="/post/2020-12-07-1/">helm3 和 kustomize </a></li>
+        
         <li><a href="/post/2020-12-09-1/">k8s Docker Runtime架构</a></li>
         
         <li><a href="/post/2020-12-04-1/">git 代理</a></li>
         
         <li><a href="/post/2020-12-02-1/">minikube 加速</a></li>
-        
-        <li><a href="/post/2020-11-24-1/">使用zap接收gin框架默认的日志并配置日志归档</a></li>
-        
-        <li><a href="/post/about/">关于</a></li>
         
     </ul>
 </div>
@@ -228,7 +233,13 @@
                 
                 <li><a href='/tags/Golang'>Golang</a></li>
                 
-                <li><a href='/tags/k8s'>k8s</a></li>
+                <li><a href='/tags/istio'>istio</a></li>
+                
+                <li><a href='/tags/xds'>xds</a></li>
+                
+                <li><a href='/tags/envoy'>envoy</a></li>
+                
+                <li><a href='/tags/go-control-plane'>go-control-plane</a></li>
                 
             </ul>
             

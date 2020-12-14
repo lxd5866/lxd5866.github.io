@@ -78,6 +78,52 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://lxd5866.github.io/post/202012-14-2/">Golang pprof 调试</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年12月14日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Golang'>Golang</a>
+            
+        </div>
+        
+        <div class="post-content">
+            背景 分析 pilot 运行时内存占用大的原因 ##用法 生成 profile file 1 2 3 4 5 6 7 go tool pprof -inuse_space http://app_ip:port/debug/pprof/heap //文件会生产到 /Users/用户名/pprof/下 (pprof) (pprof)nodefraction=0.05 //过滤数量 (pprof) (pprof)sample_index=inuse_space // 切换 [alloc_objects alloc_space inuse_objects inuse_space] (pprof)web //打开web页面 比较两个文件,常用在资源发生变化时比较消耗的原因 1 go tool pprof --base 002.pb.gz .pb.gz 直接分析某个文件 1 2 //可以查看各种图表……
+            <p class="readmore"><a href="https://lxd5866.github.io/post/202012-14-2/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://lxd5866.github.io/post/2020-12-14-1/">Envoy proto 生成 go-control-plane</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年12月14日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Golang'>Golang</a>
+            
+        </div>
+        
+        <div class="post-content">
+            背景 envoy proto 生成依赖bazel 等工具，需要从google code仓库拉代码，国内编译比较麻烦， 所以cache了构建bazel 环境需要的基础镜像，方便proto生成，免得每次都要从头安装依赖，节省时间，提高效率。 makefile FROM envoyproxy/envoy-build-ubuntu:c666a8ebe472c66038fd07772ab96ed48e621883 RUN git clone https://github.com/envoyproxy/envoy source &amp;&amp; \ cd /source &amp;&amp; \ git checkout c0ab3a4374144728c1e193fc2d43951ed36ccdb7 RUN ./tools/api/generate_go_protobuf.py || true WORKDIR /source 打包好的docker image registry.cn-hangzhou.aliyuncs.com/lxd/envoy-generate-cache:v1 用法……
+            <p class="readmore"><a href="https://lxd5866.github.io/post/2020-12-14-1/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://lxd5866.github.io/post/2020-12-09-3/">Go插件plugin</a>
             </h1>
         </header>
@@ -178,7 +224,7 @@
         </date>
         
         <div class="post-content">
-            minikube 使用 &amp; 加速 背景 minikibe 是由谷歌官方的，k8s本地模拟环境，主要用作 k8s 的环境测试工作。 minikube implements a local Kubernetes cluster on macOS, Linux, and Windows. minikube's primary goals are to be the best tool for local Kubernetes application development and to support all Kubernetes features that fit. 安装 brew install minikube brew 可以使用清华源加速 使用 一般情况下 1 2 3 4 5 6 7 //加速，建议使用自己的加速起，不推荐使用阿里源 //速度由梯子决定 export HTTP_PROXY=http://127.0.0.1:58591 export HTTPS_PROXY=http://127.0.0.1:5859 export……
+            minikube 使用 &amp; 加速 背景 minikibe 是由谷歌官方的，k8s本地模拟环境，主要用作 k8s 的环境测试工作。 minikube implements a local Kubernetes cluster on macOS, Linux, and Windows. minikube's primary goals are to be the best tool for local Kubernetes application development and to support all Kubernetes features that fit. 安装 brew install minikube brew 可以使用清华源加速 使用 一般情况下 1 2 3 4 5 6 7 //加速，建议使用自己的加速起，不推荐使用阿里源 //速度由梯子决定 export HTTP_PROXY=http://127.0.0.1:20880 export HTTPS_PROXY=http://127.0.0.1:20880 export……
             <p class="readmore"><a href="https://lxd5866.github.io/post/2020-12-02-1/">阅读全文</a></p>
         </div>
     </article>
@@ -256,6 +302,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://lxd5866.github.io/post/202012-14-2/" title="Golang pprof 调试">Golang pprof 调试</a>
+    </li>
+    
+    <li>
+        <a href="https://lxd5866.github.io/post/2020-12-14-1/" title="Envoy proto 生成 go-control-plane">Envoy proto 生成 go-control-plane</a>
+    </li>
+    
+    <li>
         <a href="https://lxd5866.github.io/post/2020-12-09-3/" title="Go插件plugin">Go插件plugin</a>
     </li>
     
@@ -283,6 +337,10 @@
         <a href="https://lxd5866.github.io/post/about/" title="关于">关于</a>
     </li>
     
+    <li>
+        <a href="https://lxd5866.github.io/post/202012-14-3/" title=""></a>
+    </li>
+    
 </ul>
     </section>
 
@@ -292,7 +350,7 @@
         <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
-    <li><a href="https://lxd5866.github.io/categories/Golang/">Golang (1)</a></li>
+    <li><a href="https://lxd5866.github.io/categories/Golang/">Golang (3)</a></li>
     
     <li><a href="https://lxd5866.github.io/categories/k8s/">k8s (3)</a></li>
     
@@ -311,11 +369,19 @@
     
     <a href="https://lxd5866.github.io/tags/docker/">docker</a>
     
+    <a href="https://lxd5866.github.io/tags/envoy/">envoy</a>
+    
+    <a href="https://lxd5866.github.io/tags/go-control-plane/">go-control-plane</a>
+    
     <a href="https://lxd5866.github.io/tags/go-plugin/">go-plugin</a>
+    
+    <a href="https://lxd5866.github.io/tags/istio/">istio</a>
     
     <a href="https://lxd5866.github.io/tags/k8s/">k8s</a>
     
     <a href="https://lxd5866.github.io/tags/plugn/">plugn</a>
+    
+    <a href="https://lxd5866.github.io/tags/xds/">xds</a>
     
 </div>
     </section>

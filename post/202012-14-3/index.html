@@ -9,20 +9,16 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
     
 
-    <title>helm3 和 kustomize  | 沧海的博客</title>
-    <meta property="og:title" content="helm3 和 kustomize  - 沧海的博客">
+    <title> | 沧海的博客</title>
+    <meta property="og:title" content=" - 沧海的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content='2020-12-07T19:36:45&#43;08:00'>
-        
-        
-    <meta property="article:modified_time" content='2020-12-07T19:36:45&#43;08:00'>
         
     <meta name="Keywords" content="golang,go语言,go语言笔记,沧海,xudong,旭东,kubernetes,istio,mesh,service mesh,yaml">
-    <meta name="description" content="helm3 和 kustomize ">
+    <meta name="description" content="">
         
     <meta name="author" content="沧海">
-    <meta property="og:url" content="https://lxd5866.github.io/post/2020-12-07-1/">
+    <meta property="og:url" content="https://lxd5866.github.io/post/202012-14-3/">
     <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
@@ -135,7 +131,25 @@
     <div class="post-toc-content">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#背景">背景</a></li>
+    <li><a href="#1-压测方案">1. 压测方案</a>
+      <ul>
+        <li><a href="#简述">简述</a></li>
+        <li><a href="#具体流程">具体流程</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-压测数据汇总">2. 压测数据汇总</a></li>
+    <li><a href="#压测数据汇总">压测数据汇总</a>
+      <ul>
+        <li><a href="#8c32g">8C32G</a></li>
+        <li><a href="#8c64g">8C64G</a></li>
+        <li><a href="#总结">总结：</a></li>
+      </ul>
+    </li>
+    <li><a href="#heading"></a>
+      <ul>
+        <li><a href="#不同资源的影响">不同资源的影响</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
@@ -169,18 +183,11 @@
 </script>
     <article class="post">
         <header>
-            <h1 class="post-title">helm3 和 kustomize </h1>
+            <h1 class="post-title"></h1>
         </header>
         <date class="post-meta meta-date">
-            2020年12月7日
+            1年1月1日
         </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/k8s'>k8s</a></span>
-            
-        </div>
         
         
         <div class="post-meta">
@@ -190,12 +197,442 @@
         
         
         <div class="post-content">
-            <h1 id="helm3--kustomize">helm3  kustomize</h1>
-<h2 id="背景">背景</h2>
-<p>之前一直用的时kustomize 管理 yaml，而不太喜欢使用helm，因为感觉它对外对外是一个黑盒，用起来不太放心。
-而istio自 1.8 版本开始，重新添加 helm3为默认的管理工具，最近在看的
-<a href="https://openkruise.io/zh-cn/">openkruise</a>
-也是使用helm管理，所以还是决定花点时间看一下。</p>
+            <h2 id="1-压测方案">1. 压测方案</h2>
+<h3 id="简述">简述</h3>
+<p>模拟在20w pod、15w CR、每秒1200+ pod变更事件的压力下进行全机房odp重启的模拟测试</p>
+<h3 id="具体流程">具体流程</h3>
+<p>
+        <img class="mx-auto" alt="image.png" src="/1597855711903-2a203e48-7a13-4b4b-bb68-e8ba2573e5e6.png" />   
+    </p>
+<ol>
+<li>Pilot-dds启动时向APISerer list/watch DBMesh CR并进行初始化，完成后对外提供服务</li>
+<li>压力机模拟ODP向Pilot-dds发起grpc建链</li>
+<li>压力机向Pilot-dds发起database请求</li>
+<li>Pilot-dds通过DDSScopeConfig计算出ODP的Database列表返回请求响应</li>
+<li>压力机处理收到的Database， 解析Child CR后向Pilot-dds发起Child CR 请求，记录收到的数量</li>
+</ol>
+<p>其他说明：</p>
+<ol>
+<li>模拟脚本会持续维护 一定数量的连接</li>
+<li>每分钟 0 秒时，维护的连接同时发送Databse请求，并处理Child CR，循环模拟ODP 同时获取CR的场景</li>
+</ol>
+<h2 id="2-压测数据汇总">2. 压测数据汇总</h2>
+<h2 id="压测数据汇总">压测数据汇总</h2>
+<h3 id="8c32g">8C32G</h3>
+<table>
+<thead>
+<tr>
+<th>链接数</th>
+<th>改动频率</th>
+<th>CPU(%)</th>
+<th>MEM(%)</th>
+<th>下发数量</th>
+<th>处理时间 (s)</th>
+<th>RT (s)</th>
+<th>最大/最小/平均 (s)</th>
+<th>错误率</th>
+<th>GC(ms clock)</th>
+<th>STW (ms clock)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0（初始状态）</td>
+<td>无</td>
+<td>峰值：1</td>
+<td>稳定：25.7</td>
+<td>无</td>
+<td>无</td>
+<td>P85 0.054P90 0.054P95 0.055P99 0.055</td>
+<td>max 0.065min 0.050avg 0.055</td>
+<td>error 0.0%</td>
+<td>1265</td>
+<td>0.23</td>
+</tr>
+<tr>
+<td>1000链接</td>
+<td>每分钟1轮</td>
+<td>峰值：12</td>
+<td>稳定：27.6</td>
+<td>10000</td>
+<td>1.601060</td>
+<td>P85 0.054P90 0.054P95 0.055P99 0.055</td>
+<td>max 0.065min 0.050avg 0.055</td>
+<td>error 0.0%</td>
+<td>1297</td>
+<td>0.23</td>
+</tr>
+<tr>
+<td>3000链接</td>
+<td>每分钟1轮</td>
+<td>峰值：70</td>
+<td>稳定：33</td>
+<td>30000</td>
+<td>2.417756</td>
+<td>P85 0.055P90 0.055P95 0.055P99 0.055</td>
+<td>max 0.060min 0.050avg 0.055</td>
+<td>error 0.0%</td>
+<td>1375</td>
+<td>0.24</td>
+</tr>
+<tr>
+<td>5000链接</td>
+<td>每分钟1轮</td>
+<td>峰值：120</td>
+<td>稳定：35</td>
+<td>50000</td>
+<td>3.202712</td>
+<td>P85 0.055P90 0.055P95 0.055P99 0.055</td>
+<td>max 0.061min 0.050avg 0.055</td>
+<td>error 0.0%</td>
+<td>1498</td>
+<td>0.27</td>
+</tr>
+<tr>
+<td>10000链接</td>
+<td>每分钟1轮</td>
+<td>峰值：230%</td>
+<td>稳定： 41.7</td>
+<td>100000</td>
+<td>4.801261</td>
+<td>P85 0.057P90 0.057P95 0.057P99 0.058</td>
+<td>max 0.068min 0.053avg 0.058</td>
+<td>error 1.0%</td>
+<td>2322</td>
+<td>0.29</td>
+</tr>
+<tr>
+<td>5000链接</td>
+<td>每秒1轮/240轮，共240秒</td>
+<td>稳定800%满负载</td>
+<td>稳定：50.1</td>
+<td>12000000</td>
+<td>346.874431</td>
+<td>P85 0.233P90 0.275P95 0.331P99 0.427</td>
+<td>max 2.810min 0.049avg 0.455</td>
+<td>error  15 %</td>
+<td>2166</td>
+<td>6.3</td>
+</tr>
+<tr>
+<td>10000链接</td>
+<td>每秒1轮/240轮</td>
+<td>稳定800%满负载</td>
+<td>稳定：56</td>
+<td>24000000</td>
+<td>631.475908</td>
+<td>P85 0.297P90 0.314P95 0.331P99 0.360</td>
+<td>max 1.778min 0.101avg 0.377</td>
+<td>error 17%</td>
+<td>2875</td>
+<td>10.3</td>
+</tr>
+</tbody>
+</table>
+<h3 id="8c64g">8C64G</h3>
+<table>
+<thead>
+<tr>
+<th>链接数</th>
+<th>改动频率</th>
+<th>CPU(%)</th>
+<th>MEM(%)</th>
+<th>下发CR数量</th>
+<th>处理时间 (s)</th>
+<th>RT (s)</th>
+<th>最大/最小/平均 (s)</th>
+<th>错误率</th>
+<th>GC(ms clock)</th>
+<th>STW (ms clock)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0（初始状态）</td>
+<td>无</td>
+<td>峰值：1</td>
+<td>稳定：13</td>
+<td>无</td>
+<td>无</td>
+<td>P85 0.054P90 0.054P95 0.055P99 0.055</td>
+<td>max 0.065min 0.050avg 0.055</td>
+<td>error 0.0%</td>
+<td>1275</td>
+<td>0.23</td>
+</tr>
+<tr>
+<td>1000链接</td>
+<td>每分钟1轮</td>
+<td>峰值：18</td>
+<td>稳定：13.7</td>
+<td>10000</td>
+<td>1.605038</td>
+<td>P85 0.053P90 0.053P95 0.053P99 0.053</td>
+<td>max 0.061min 0.050avg 0.055</td>
+<td>error 0.0%</td>
+<td>1300</td>
+<td>0.20</td>
+</tr>
+<tr>
+<td>3000链接</td>
+<td>每分钟1轮</td>
+<td>峰值：24.7</td>
+<td>稳定：14.7</td>
+<td>30000</td>
+<td>2.404611</td>
+<td>P85 0.054P90 0.055P95 0.055P99 0.055</td>
+<td>max 0.716min 0.050avg 0.062</td>
+<td>error 0.0%</td>
+<td>2147</td>
+<td>0.24</td>
+</tr>
+<tr>
+<td>5000链接</td>
+<td>每分钟1轮</td>
+<td>峰值：110%</td>
+<td>稳定：17.1</td>
+<td>50000</td>
+<td>3.21868</td>
+<td>P85 0.054P90 0.054P95 0.055P99 0.055</td>
+<td>max 1.507min 0.050avg 0.070</td>
+<td>error 2%</td>
+<td>2201</td>
+<td>0.27</td>
+</tr>
+<tr>
+<td>10000链接</td>
+<td>每分钟1轮</td>
+<td>峰值：193%</td>
+<td>稳定：20.7</td>
+<td>100000</td>
+<td>4.801704</td>
+<td>P85 0.057P90 0.058P95 0.058P99 0.058</td>
+<td>max 0.076min 0.053avg 0.058</td>
+<td>error 0.0%</td>
+<td>2215</td>
+<td>0.29</td>
+</tr>
+<tr>
+<td>5000链接</td>
+<td>每秒1轮/240轮，共240秒</td>
+<td>稳定800%满负载</td>
+<td>稳定：24.7</td>
+<td>12000000</td>
+<td>359.23412</td>
+<td>P85 0.266P90 0.304P95 0.355P99 0.438</td>
+<td>max 2.900min 0.050avg 0.469</td>
+<td>error 21 %</td>
+<td>2667</td>
+<td>6.3</td>
+</tr>
+<tr>
+<td>10000链接</td>
+<td>每秒1轮/240轮</td>
+<td>稳定800%满负载</td>
+<td>稳定： 28.2</td>
+<td>24000000</td>
+<td>627.271923</td>
+<td>P85 0.310P90 0.323P95 0.346P99 0.377</td>
+<td>max 1.498min 0.101avg 0.390</td>
+<td>error  8.0%</td>
+<td>2800</td>
+<td>9.7</td>
+</tr>
+</tbody>
+</table>
+<p>8C64G</p>
+<table>
+<thead>
+<tr>
+<th>链接数</th>
+<th>改动频率</th>
+<th>CPU(%)</th>
+<th>MEM(%)</th>
+<th>下发CR数量</th>
+<th>处理时间 (s)</th>
+<th>RT (s)</th>
+<th>最大/最小/平均 (s)</th>
+<th>错误率</th>
+<th>GC(ms clock)</th>
+<th>STW (ms clock)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>每秒1轮/240轮，共240秒</td>
+<td>1</td>
+<td>稳定：15.4</td>
+<td>2400</td>
+<td>358.466569</td>
+<td>P85 0.002P90 0.002P95 0.002P99 0.002</td>
+<td>max 0.005min 0.002avg 0.002</td>
+<td>error 0</td>
+<td>1407</td>
+<td>0.13</td>
+</tr>
+<tr>
+<td>5000链接</td>
+<td>每秒1轮/240轮，共240秒</td>
+<td>800%满负载</td>
+<td>稳定：24.7</td>
+<td>12000000</td>
+<td>359.891194</td>
+<td>P85 0.002P90 0.002P95 0.003P99 0.017</td>
+<td>max 1.155min 0.001avg 0.030</td>
+<td>error 0</td>
+<td>2900</td>
+<td>6.3</td>
+</tr>
+<tr>
+<td>10000链接</td>
+<td>每秒1轮/240轮</td>
+<td>800%满负载</td>
+<td>稳定： 28.2</td>
+<td>24000000</td>
+<td>357.701160</td>
+<td>P85 0.310P90 0.323P95 0.346P99 0.377</td>
+<td>max 1.498min 0.101avg 0.390</td>
+<td>error  0</td>
+<td>2800</td>
+<td>9.7</td>
+</tr>
+</tbody>
+</table>
+<p>16C64G</p>
+<table>
+<thead>
+<tr>
+<th>链接数</th>
+<th>改动频率</th>
+<th>CPU(%)</th>
+<th>MEM(%)</th>
+<th>下发CR数量</th>
+<th>处理时间 (s)</th>
+<th>RT (s)</th>
+<th>最大/最小/平均 (s)</th>
+<th>错误率</th>
+<th>GC(ms clock)</th>
+<th>STW (ms clock)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>每秒1轮/240轮，共240秒</td>
+<td>1</td>
+<td>稳定：15.4</td>
+<td>2400</td>
+<td>358.315858</td>
+<td>P85 0.002P90 0.002P95 0.002P99 0.002</td>
+<td>max 0.006min 0.002avg 0.002</td>
+<td>error 0</td>
+<td>674</td>
+<td>0.11</td>
+</tr>
+<tr>
+<td>5000链接</td>
+<td>每秒1轮/240轮，共240秒</td>
+<td>800%满负载</td>
+<td>稳定：24.7</td>
+<td>12000000</td>
+<td>357.870137</td>
+<td>P85 0.002P90 0.002P95 0.003P99 0.017</td>
+<td>max 1.155min 0.001avg 0.030</td>
+<td>error 7</td>
+<td>956</td>
+<td>4.8</td>
+</tr>
+<tr>
+<td>10000链接</td>
+<td>每秒1轮/240轮</td>
+<td>800%满负载</td>
+<td>稳定： 28.2</td>
+<td>24000000</td>
+<td>357.701160</td>
+<td>P85 0.310P90 0.323P95 0.346P99 0.377</td>
+<td>max 1.498min 0.101avg 0.390</td>
+<td>error 13</td>
+<td>1335</td>
+<td>14.1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="总结">总结：</h3>
+<p>pilot的处理能力，预计8C单秒处理CR能力约为20000</p>
+<table>
+<thead>
+<tr>
+<th>配置</th>
+<th>QPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8C16G</td>
+<td>15635.23</td>
+</tr>
+<tr>
+<td>8C32G</td>
+<td>19635.23</td>
+</tr>
+<tr>
+<td>16C32G</td>
+<td>40306.00</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>16G内存: 20pod与30W cr的环境</li>
+</ol>
+<ul>
+<li>
+<ul>
+<li>启动pilot会OOM，不能正常服务</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>32G内存: 20pod与30W cr的环境</li>
+</ol>
+<ul>
+<li>
+<ul>
+<li>正常服务无OOM情况</li>
+<li>relist 触发的时，内存需求为45G左右，会触发OOM</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>64G内存: 20pod与30W cr的环境</li>
+</ol>
+<ul>
+<li>
+<ul>
+<li>正常服务无OOM情况</li>
+<li>relist 触发的时，能正常对外提供服务，内存稳定在78%左右，建议采用此方案</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>CPU处理能力会对pilot 的TPS性能影响较大，需预估短时间内的CR数，以防止请求堆积，响应时间不可控</li>
+</ol>
+<ul>
+<li>
+<ul>
+<li>计算方式： 比如在16C32G的情况下，预估处理能力为40000CR</li>
+<li>单个database大小为40个CR，则pilot能在一秒内为1000个odp提供服务</li>
+<li>若odp数量为2000，同时接收到CR数量为 40 个的databse推送，同时请求pilot，pilot 的处理时间接近2s，则请求返回时间较久，此时cpu处于高位运行状态，需扩容</li>
+</ul>
+</li>
+</ul>
+<h2 id="heading"></h2>
+<h3 id="不同资源的影响">不同资源的影响</h3>
+<ul>
+<li>每个 grpc 大约需要内存 230K</li>
+<li>每个 Pod 大约需要内存 64K</li>
+<li>CR消耗内存大小由CR大小决定，测试环境CR，测试环境30w cr 消耗内存 3307M ，平均每个cr消耗 11 k</li>
+</ul>
 
         </div>
 
@@ -208,15 +645,15 @@
     <h2>See Also</h2>
     <ul class="listing">
         
+        <li><a href="/post/202012-14-2/">Golang pprof 调试</a></li>
+        
+        <li><a href="/post/2020-12-14-1/">Envoy proto 生成 go-control-plane</a></li>
+        
+        <li><a href="/post/2020-12-09-3/">Go插件plugin</a></li>
+        
+        <li><a href="/post/2020-12-07-1/">helm3 和 kustomize </a></li>
+        
         <li><a href="/post/2020-12-09-1/">k8s Docker Runtime架构</a></li>
-        
-        <li><a href="/post/2020-12-04-1/">git 代理</a></li>
-        
-        <li><a href="/post/2020-12-02-1/">minikube 加速</a></li>
-        
-        <li><a href="/post/2020-11-24-1/">使用zap接收gin框架默认的日志并配置日志归档</a></li>
-        
-        <li><a href="/post/about/">关于</a></li>
         
     </ul>
 </div>
@@ -224,13 +661,7 @@
 
         <div class="post-meta meta-tags">
             
-            <ul class="clearfix">
-                
-                <li><a href='/tags/Golang'>Golang</a></li>
-                
-                <li><a href='/tags/k8s'>k8s</a></li>
-                
-            </ul>
+            没有标签
             
         </div>
     </article>

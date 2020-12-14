@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>istio on 沧海的博客</title>
+    <link>https://lxd5866.github.io/tags/istio/</link>
+    <description>Recent content in istio on 沧海的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Mon, 14 Dec 2020 15:00:28 +0800</lastBuildDate><atom:link href="https://lxd5866.github.io/tags/istio/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Envoy proto 生成 go-control-plane</title>
+      <link>https://lxd5866.github.io/post/2020-12-14-1/</link>
+      <pubDate>Mon, 14 Dec 2020 15:00:28 +0800</pubDate>
+      
+      <guid>https://lxd5866.github.io/post/2020-12-14-1/</guid>
+      <description>背景 envoy proto 生成依赖bazel 等工具，需要从google code仓库拉代码，国内编译比较麻烦， 所以cache了构建bazel 环境需要的基础镜像，方便proto生成，免得每次都要从头安装依赖，节省时间，提高效率。 makefile FROM envoyproxy/envoy-build-ubuntu:c666a8ebe472c66038fd07772ab96ed48e621883 RUN git clone https://github.com/envoyproxy/envoy source &amp;amp;&amp;amp; \ cd /source &amp;amp;&amp;amp; \ git checkout c0ab3a4374144728c1e193fc2d43951ed36ccdb7 RUN ./tools/api/generate_go_protobuf.py || true WORKDIR /source 打包好的docker image registry.cn-hangzhou.aliyuncs.com/lxd/envoy-generate-cache:v1 用法</description>
+    </item>
+    
+  </channel>
+</rss>

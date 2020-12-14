@@ -9,20 +9,20 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
     
 
-    <title>helm3 和 kustomize  | 沧海的博客</title>
-    <meta property="og:title" content="helm3 和 kustomize  - 沧海的博客">
+    <title>Golang pprof 调试 | 沧海的博客</title>
+    <meta property="og:title" content="Golang pprof 调试 - 沧海的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content='2020-12-07T19:36:45&#43;08:00'>
+    <meta property="article:published_time" content='2020-12-14T17:06:53&#43;08:00'>
         
         
-    <meta property="article:modified_time" content='2020-12-07T19:36:45&#43;08:00'>
+    <meta property="article:modified_time" content='2020-12-14T17:06:53&#43;08:00'>
         
     <meta name="Keywords" content="golang,go语言,go语言笔记,沧海,xudong,旭东,kubernetes,istio,mesh,service mesh,yaml">
-    <meta name="description" content="helm3 和 kustomize ">
+    <meta name="description" content="Golang pprof 调试">
         
     <meta name="author" content="沧海">
-    <meta property="og:url" content="https://lxd5866.github.io/post/2020-12-07-1/">
+    <meta property="og:url" content="https://lxd5866.github.io/post/202012-14-2/">
     <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
@@ -169,16 +169,16 @@
 </script>
     <article class="post">
         <header>
-            <h1 class="post-title">helm3 和 kustomize </h1>
+            <h1 class="post-title">Golang pprof 调试</h1>
         </header>
         <date class="post-meta meta-date">
-            2020年12月7日
+            2020年12月14日
         </date>
         
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='/categories/k8s'>k8s</a></span>
+            <span class="meta-category"><a href='/categories/Golang'>Golang</a></span>
             
         </div>
         
@@ -190,13 +190,57 @@
         
         
         <div class="post-content">
-            <h1 id="helm3--kustomize">helm3  kustomize</h1>
-<h2 id="背景">背景</h2>
-<p>之前一直用的时kustomize 管理 yaml，而不太喜欢使用helm，因为感觉它对外对外是一个黑盒，用起来不太放心。
-而istio自 1.8 版本开始，重新添加 helm3为默认的管理工具，最近在看的
-<a href="https://openkruise.io/zh-cn/">openkruise</a>
-也是使用helm管理，所以还是决定花点时间看一下。</p>
-
+            <h2 id="背景">背景</h2>
+<p>分析 pilot 运行时内存占用大的原因
+##用法</p>
+<ul>
+<li>生成 profile file</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">go tool pprof  -inuse_space  http://app_ip:port/debug/pprof/heap
+//文件会生产到 /Users/用户名/pprof/下
+<span style="color:#000;font-weight:bold">(</span>pprof<span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">(</span>pprof<span style="color:#000;font-weight:bold">)</span><span style="color:#008080">nodefraction</span><span style="color:#000;font-weight:bold">=</span>0.05 //过滤数量
+<span style="color:#000;font-weight:bold">(</span>pprof<span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">(</span>pprof<span style="color:#000;font-weight:bold">)</span><span style="color:#008080">sample_index</span><span style="color:#000;font-weight:bold">=</span>inuse_space // 切换 <span style="color:#000;font-weight:bold">[</span>alloc_objects alloc_space inuse_objects inuse_space<span style="color:#000;font-weight:bold">]</span>
+<span style="color:#000;font-weight:bold">(</span>pprof<span style="color:#000;font-weight:bold">)</span>web  //打开web页面
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>比较两个文件,常用在资源发生变化时比较消耗的原因</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">go tool pprof --base 002.pb.gz .pb.gz
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>直接分析某个文件</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">//可以查看各种图表 source等
+go tool pprof -http localhost:12348 002.pb.gz
+</code></pre></td></tr></table>
+</div>
+</div>
         </div>
 
         
@@ -208,15 +252,15 @@
     <h2>See Also</h2>
     <ul class="listing">
         
+        <li><a href="/post/2020-12-14-1/">Envoy proto 生成 go-control-plane</a></li>
+        
+        <li><a href="/post/2020-12-09-3/">Go插件plugin</a></li>
+        
+        <li><a href="/post/2020-12-07-1/">helm3 和 kustomize </a></li>
+        
         <li><a href="/post/2020-12-09-1/">k8s Docker Runtime架构</a></li>
         
         <li><a href="/post/2020-12-04-1/">git 代理</a></li>
-        
-        <li><a href="/post/2020-12-02-1/">minikube 加速</a></li>
-        
-        <li><a href="/post/2020-11-24-1/">使用zap接收gin框架默认的日志并配置日志归档</a></li>
-        
-        <li><a href="/post/about/">关于</a></li>
         
     </ul>
 </div>
@@ -227,8 +271,6 @@
             <ul class="clearfix">
                 
                 <li><a href='/tags/Golang'>Golang</a></li>
-                
-                <li><a href='/tags/k8s'>k8s</a></li>
                 
             </ul>
             
