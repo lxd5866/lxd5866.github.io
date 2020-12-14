@@ -6,11 +6,11 @@
     <description>Recent content in pilot on 沧海的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 14 Dec 2020 22:47:11 +0800</lastBuildDate><atom:link href="https://lxd5866.github.io/tags/pilot/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 14 Dec 2020 23:47:11 +0800</lastBuildDate><atom:link href="https://lxd5866.github.io/tags/pilot/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>pilot 压力测试【小记】</title>
       <link>https://lxd5866.github.io/post/2020-12-14-3/</link>
-      <pubDate>Mon, 14 Dec 2020 22:47:11 +0800</pubDate>
+      <pubDate>Mon, 14 Dec 2020 23:47:11 +0800</pubDate>
       
       <guid>https://lxd5866.github.io/post/2020-12-14-3/</guid>
       <description>1. 压测方案 简述 模拟在20w pod、15w CR、每秒1200+ pod变更事件的压力下进行全机房odp重启的模拟测试 具体流程 Pilot启动时向APISerer list/watch并进行初始化，完成后对外提供服务 压力机模拟 sidecar 向Pilot发起grpc建链 压力机向Pilot发起请求 Pilo</description>
