@@ -212,7 +212,7 @@ with <a href="https://blog.k8s.io/2020/12/02/dockershim-faq/">a dedicated FAQ pa
 <h2 id="典型的k8s-runtime架构">典型的K8S Runtime架构</h2>
 <p>从最常见的Docker说起，kubelet和Docker的集成方案图如下：
 
-        <img class="mx-auto" alt="在这里插入图片描述" src="./images/2020-12-09-1/20190602155250485.png" />   
+        <img class="mx-auto" alt="在这里插入图片描述" src="/images/2020-12-09-1/20190602155250485.png" />   
     
 当kubelet要创建一个容器时，需要以下几步：</p>
 <ol>
@@ -263,15 +263,15 @@ with <a href="https://blog.k8s.io/2020/12/02/dockershim-faq/">a dedicated FAQ pa
 <p>上一节看到现在的 Runtime 实在是有点复杂了，而复杂是万恶之源（其实本质上就是想干掉 Docker），于是就有了直接拿 containerd 做 oci-runtime 的方案。当然，除了 Kubernetes 之外，containerd 还要接诸如 Swarm 等调度系统，因此它不会去直接实现 CRI，这个适配工作当然就要交给一个 shim 了。</p>
 <p>containerd 1.0 中，对 CRI 的适配通过一个单独的进程 CRI-containerd 来完成：
 
-        <img class="mx-auto" alt="在这里插入图片描述" src="./images/2020-12-09-1/2019060219520923.png" />   
+        <img class="mx-auto" alt="在这里插入图片描述" src="/images/2020-12-09-1/2019060219520923.png" />   
     
 containerd 1.1 中做的又更漂亮一点，砍掉了 CRI-containerd 这个进程，直接把适配逻辑作为插件放进了 containerd 主进程中：
 
-        <img class="mx-auto" alt="在这里插入图片描述" src="./images/2020-12-09-1/20190602195222333.png" />   
+        <img class="mx-auto" alt="在这里插入图片描述" src="/images/2020-12-09-1/20190602195222333.png" />   
     
 但在 containerd 做这些事情之情，社区就已经有了一个更为专注的 cri-runtime：CRI-O，它非常纯粹，就是兼容 CRI 和 OCI，做一个 Kubernetes 专用的运行时：
 
-        <img class="mx-auto" alt="在这里插入图片描述" src="./images/2020-12-09-1/20190602195243756.png" />   
+        <img class="mx-auto" alt="在这里插入图片描述" src="/images/2020-12-09-1/20190602195243756.png" />   
     
 其中 conmon 就对应 containerd-shim，大体意图是一样的。
 CRI-O 和（直接调用）containerd 的方案比起默认的 dockershim 确实简洁很多，但没啥生产环境的验证案例，我所知道的仅仅是 containerd 在 GKE 上是 beta 状态。因此假如你对 Docker 没有特殊的政治恨意，大可不必把 dockershim 这套换掉。</p>
@@ -285,7 +285,7 @@ Kubernetes 当然做不到，其中最大的两个原因是：</p>
 </ul>
 <p>对于第二个问题，一个典型的解决方案就是提供一个新的 OCI 实现，用 VM 来跑容器，实现内核上的硬隔离。runV 和 Clear Containers 都是这个思路。因为这两个项目做得事情是很类似，后来就合并成了一个项目 Kata Container。Kata 的一张图很好地解释了基于虚拟机的容器与基于 namespaces 和 cgroups 的容器间的区别：
 
-        <img class="mx-auto" alt="在这里插入图片描述" src="./images/2020-12-09-1/2019060219551088.png" />   
+        <img class="mx-auto" alt="在这里插入图片描述" src="/images/2020-12-09-1/2019060219551088.png" />   
     
 当然，没有系统是完全安全的，假如 hypervisor 存在漏洞，那么用户仍有可能攻破隔离。但所有的事情都要对比而言，在共享内核的情况下，暴露的攻击面是非常大的，做安全隔离的难度就像在美利坚和墨西哥之间修 The Great Wall，而当内核隔离之后，只要守住 hypervisor 这道关子就后顾无虞了。</p>
 <p>嗯，一个 VM 里跑一个容器，听上去隔离性很不错，但不是说虚拟机又笨重又不好管理才切换到容器的吗，怎么又要走回去了？</p>
@@ -298,7 +298,7 @@ Kubernetes 当然做不到，其中最大的两个原因是：</p>
 <p>这就要说回我们前面讲到的 CRI 中针对 PodSandbox（容器沙箱环境）的操作接口了。第一节中，我们刻意简化了场景，只考虑创建一个容器，而没有讨论创建一个 Pod。大家都知道，真正启动 Pod 里定义的容器之前，kubelet 会先启动一个 infra 容器，并执行 /pause 让 infra 容器的主进程永远挂起。这个容器存在的目的就是维持住整个 Pod 的各种 namespace，真正的业务容器只要加入 infra 容器的 network 等 namespace 就能实现对应 namespace 的共享。而 infra 容器创造的这个共享环境则被抽象为 PodSandbox。每次 kubelet 在创建 Pod 时，就会先调用 CRI 的 RunPodSandbox 接口启动一个沙箱环境，再调用 CreateContainer 在沙箱中创建容器。</p>
 <p>这里就已经说出答案了，对于 Kata Container 而言，只要在 RunPodSandbox 调用中创建一个 VM，之后再往 VM 中添加容器就可以了。最后运行 Pod 的样子就是这样的：
 
-        <img class="mx-auto" alt="在这里插入图片描述" src="./images/2020-12-09-1/20190602212357778.png" />   
+        <img class="mx-auto" alt="在这里插入图片描述" src="/images/2020-12-09-1/20190602212357778.png" />   
     
 说完了 Kata，其实 gVisor 和 Firecracker 都不言自明了，大体上都是类似的，只是：</p>
 <p>gVisor 并不会去创建一个完整的 VM，而是实现了一个叫 “Sentry” 的用户态进程来处理容器的 syscall，而拦截 syscall 并重定向到 Sentry 的过程则由 KVM 或 ptrace 实现。
