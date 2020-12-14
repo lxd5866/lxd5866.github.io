@@ -78,7 +78,7 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="https://lxd5866.github.io/post/202012-14-2/">Golang pprof 调试</a>
+                <a href="https://lxd5866.github.io/post/2020-12-14-3/">Golang pprof 调试</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -90,11 +90,13 @@
             
             <a href='/categories/Golang'>Golang</a>
             
+            <a href='/categories/istio'>istio</a>
+            
         </div>
         
         <div class="post-content">
-            背景 分析 pilot 运行时内存占用大的原因 ##用法 生成 profile file 1 2 3 4 5 6 7 go tool pprof -inuse_space http://app_ip:port/debug/pprof/heap //文件会生产到 /Users/用户名/pprof/下 (pprof) (pprof)nodefraction=0.05 //过滤数量 (pprof) (pprof)sample_index=inuse_space // 切换 [alloc_objects alloc_space inuse_objects inuse_space] (pprof)web //打开web页面 比较两个文件,常用在资源发生变化时比较消耗的原因 1 go tool pprof --base 002.pb.gz .pb.gz 直接分析某个文件 1 2 //可以查看各种图表……
-            <p class="readmore"><a href="https://lxd5866.github.io/post/202012-14-2/">阅读全文</a></p>
+            1. 压测方案 简述 模拟在20w pod、15w CR、每秒1200+ pod变更事件的压力下进行全机房odp重启的模拟测试 具体流程 Pilot启动时向APISerer list/watch并进行初始化，完成后对外提供服务 压力机模拟 sidecar 向Pilot发起grpc建链 压力机向Pilot发起请求 Pilo……
+            <p class="readmore"><a href="https://lxd5866.github.io/post/2020-12-14-3/">阅读全文</a></p>
         </div>
     </article>
     
@@ -141,6 +143,29 @@
         <div class="post-content">
             Go插件plugin 背景 项目需要在不给项目源码的情况下，给三方做拓展。实现方案是通过配置，加载plugin，调用约定好的方法实现特定的业务场景 原文地址 1. Go plugin是什么 Go 1.8版本开始提供了一个创建共享库的新工具,称为 Plugins. A plugin is a Go main package with exported functions and variables that has been built with: go build -buildmode=plugin Plugin插件……
             <p class="readmore"><a href="https://lxd5866.github.io/post/2020-12-09-3/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://lxd5866.github.io/post/2020-12-14-2/">Golang pprof 调试</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            1年1月1日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Golang'>Golang</a>
+            
+        </div>
+        
+        <div class="post-content">
+            背景 分析 pilot 运行时内存占用大的原因 ##用法 生成 profile file 1 2 3 4 5 6 7 go tool pprof -inuse_space http://app_ip:port/debug/pprof/heap //文件会生产到 /Users/用户名/pprof/下 (pprof) (pprof)nodefraction=0.05 //过滤数量 (pprof) (pprof)sample_index=inuse_space // 切换 [alloc_objects alloc_space inuse_objects inuse_space] (pprof)web //打开web页面 比较两个文件,常用在资源发生变化时比较消耗的原因 1 go tool pprof --base 002.pb.gz .pb.gz 直接分析某个文件 1 2 //可以查看各种图表……
+            <p class="readmore"><a href="https://lxd5866.github.io/post/2020-12-14-2/">阅读全文</a></p>
         </div>
     </article>
     
@@ -201,7 +226,7 @@
 <ul class="widget-list">
     
     <li>
-        <a href="https://lxd5866.github.io/post/202012-14-2/" title="Golang pprof 调试">Golang pprof 调试</a>
+        <a href="https://lxd5866.github.io/post/2020-12-14-3/" title="Golang pprof 调试">Golang pprof 调试</a>
     </li>
     
     <li>
@@ -237,7 +262,7 @@
     </li>
     
     <li>
-        <a href="https://lxd5866.github.io/post/202012-14-3/" title=""></a>
+        <a href="https://lxd5866.github.io/post/2020-12-14-2/" title="Golang pprof 调试">Golang pprof 调试</a>
     </li>
     
 </ul>
@@ -249,7 +274,9 @@
         <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
-    <li><a href="https://lxd5866.github.io/categories/Golang/">Golang (3)</a></li>
+    <li><a href="https://lxd5866.github.io/categories/Golang/">Golang (4)</a></li>
+    
+    <li><a href="https://lxd5866.github.io/categories/istio/">istio (1)</a></li>
     
     <li><a href="https://lxd5866.github.io/categories/k8s/">k8s (3)</a></li>
     
@@ -268,15 +295,13 @@
     
     <a href="https://lxd5866.github.io/tags/docker/">docker</a>
     
-    <a href="https://lxd5866.github.io/tags/envoy/">envoy</a>
-    
-    <a href="https://lxd5866.github.io/tags/go-control-plane/">go-control-plane</a>
-    
     <a href="https://lxd5866.github.io/tags/go-plugin/">go-plugin</a>
     
     <a href="https://lxd5866.github.io/tags/istio/">istio</a>
     
     <a href="https://lxd5866.github.io/tags/k8s/">k8s</a>
+    
+    <a href="https://lxd5866.github.io/tags/pilot/">pilot</a>
     
     <a href="https://lxd5866.github.io/tags/plugn/">plugn</a>
     

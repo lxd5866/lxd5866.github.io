@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>xds on 沧海的博客</title>
-    <link>https://lxd5866.github.io/tags/xds/</link>
-    <description>Recent content in xds on 沧海的博客</description>
+    <title>istio on 沧海的博客</title>
+    <link>https://lxd5866.github.io/categories/istio/</link>
+    <description>Recent content in istio on 沧海的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 14 Dec 2020 22:47:11 +0800</lastBuildDate><atom:link href="https://lxd5866.github.io/tags/xds/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 14 Dec 2020 22:47:11 +0800</lastBuildDate><atom:link href="https://lxd5866.github.io/categories/istio/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Golang pprof 调试</title>
       <link>https://lxd5866.github.io/post/2020-12-14-3/</link>
