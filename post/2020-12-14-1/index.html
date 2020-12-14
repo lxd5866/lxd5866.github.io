@@ -133,7 +133,16 @@
 <div class="post-toc" style="position: absolute; top: 188px;">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-        <nav id="TableOfContents"></nav>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#背景">背景</a></li>
+    <li><a href="#用法">用法</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
     </div>
 </div>
 <script type="text/javascript">
@@ -186,22 +195,31 @@
         
         
         <div class="post-content">
-            <p>背景
-envoy proto 生成依赖bazel 等工具，需要从google code仓库拉代码，国内编译比较麻烦，
+            <h2 id="背景">背景</h2>
+<p>envoy proto 生成依赖bazel 等工具，需要从google code仓库拉代码，国内编译比较麻烦，
 所以cache了构建bazel 环境需要的基础镜像，方便proto生成，免得每次都要从头安装依赖，节省时间，提高效率。</p>
-<p>makefile</p>
+<h2 id="用法">用法</h2>
+<h4 id="dockerfile">Dockerfile</h4>
 <pre><code>FROM envoyproxy/envoy-build-ubuntu:c666a8ebe472c66038fd07772ab96ed48e621883
 RUN git clone https://github.com/envoyproxy/envoy source &amp;&amp; \
         cd /source &amp;&amp; \
         git checkout c0ab3a4374144728c1e193fc2d43951ed36ccdb7
 RUN ./tools/api/generate_go_protobuf.py || true
 WORKDIR /source
-</code></pre><p>打包好的docker image</p>
+</code></pre><h4 id="打包好的docker-image">打包好的docker image</h4>
 <pre><code>registry.cn-hangzhou.aliyuncs.com/lxd/envoy-generate-cache:v1
-</code></pre><p>用法
-//需要在envoy更目录运行
-docker run &ndash;rm -it -v $PWD:/source/ -w /source registry.cn-hangzhou.aliyuncs.com/lxd/envoy-generate-cache:v1 ./tools/api/generate_go_protobuf.py</p>
-
+</code></pre><h4 id="用法-1">用法</h4>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">//需要在envoy更目录运行
+docker run --rm -it -v <span style="color:#008080">$PWD</span>:/source/ -w /source registry.cn-hangzhou.aliyuncs.com/lxd/envoy-generate-cache:v1 ./tools/api/generate_go_protobuf.py
+</code></pre></td></tr></table>
+</div>
+</div>
         </div>
 
         
@@ -321,7 +339,7 @@ docker run &ndash;rm -it -v $PWD:/source/ -w /source registry.cn-hangzhou.aliyun
 <ul class="widget-list">
     
     <li>
-        <a href="https://lxd5866.github.io/post/2020-12-14-3/" title="Golang pprof 调试">Golang pprof 调试</a>
+        <a href="https://lxd5866.github.io/post/2020-12-14-3/" title="pilot 压力测试【小记】">pilot 压力测试【小记】</a>
     </li>
     
     <li>
@@ -401,6 +419,8 @@ docker run &ndash;rm -it -v $PWD:/source/ -w /source registry.cn-hangzhou.aliyun
     <a href="https://lxd5866.github.io/tags/plugn/">plugn</a>
     
     <a href="https://lxd5866.github.io/tags/xds/">xds</a>
+    
+    <a href="https://lxd5866.github.io/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/">压力测试</a>
     
 </div>
     </section>

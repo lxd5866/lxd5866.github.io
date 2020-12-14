@@ -78,7 +78,7 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="https://lxd5866.github.io/post/2020-12-14-3/">Golang pprof 调试</a>
+                <a href="https://lxd5866.github.io/post/2020-12-14-3/">pilot 压力测试【小记】</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
@@ -118,7 +118,7 @@
         </div>
         
         <div class="post-content">
-            背景 envoy proto 生成依赖bazel 等工具，需要从google code仓库拉代码，国内编译比较麻烦， 所以cache了构建bazel 环境需要的基础镜像，方便proto生成，免得每次都要从头安装依赖，节省时间，提高效率。 makefile FROM envoyproxy/envoy-build-ubuntu:c666a8ebe472c66038fd07772ab96ed48e621883 RUN git clone https://github.com/envoyproxy/envoy source &amp;&amp; \ cd /source &amp;&amp; \ git checkout c0ab3a4374144728c1e193fc2d43951ed36ccdb7 RUN ./tools/api/generate_go_protobuf.py || true WORKDIR /source 打包好的docker image registry.cn-hangzhou.aliyuncs.com/lxd/envoy-generate-cache:v1 用法……
+            背景 envoy proto 生成依赖bazel 等工具，需要从google code仓库拉代码，国内编译比较麻烦， 所以cache了构建bazel 环境需要的基础镜像，方便proto生成，免得每次都要从头安装依赖，节省时间，提高效率。 用法 Dockerfile FROM envoyproxy/envoy-build-ubuntu:c666a8ebe472c66038fd07772ab96ed48e621883 RUN git clone https://github.com/envoyproxy/envoy source &amp;&amp; \ cd /source &amp;&amp; \ git checkout c0ab3a4374144728c1e193fc2d43951ed36ccdb7 RUN ./tools/api/generate_go_protobuf.py || true WORKDIR /source 打包好的docker image registry.cn-hangzhou.aliyuncs.com/lxd/envoy-generate-cache:v1……
             <p class="readmore"><a href="https://lxd5866.github.io/post/2020-12-14-1/">阅读全文</a></p>
         </div>
     </article>
@@ -327,7 +327,7 @@
 <ul class="widget-list">
     
     <li>
-        <a href="https://lxd5866.github.io/post/2020-12-14-3/" title="Golang pprof 调试">Golang pprof 调试</a>
+        <a href="https://lxd5866.github.io/post/2020-12-14-3/" title="pilot 压力测试【小记】">pilot 压力测试【小记】</a>
     </li>
     
     <li>
@@ -407,6 +407,8 @@
     <a href="https://lxd5866.github.io/tags/plugn/">plugn</a>
     
     <a href="https://lxd5866.github.io/tags/xds/">xds</a>
+    
+    <a href="https://lxd5866.github.io/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/">压力测试</a>
     
 </div>
     </section>
