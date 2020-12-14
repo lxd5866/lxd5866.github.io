@@ -131,7 +131,11 @@
     <div class="post-toc-content">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#背景">背景</a></li>
+    <li><a href="#背景">背景</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
@@ -189,9 +193,7 @@
             <h2 id="背景">背景</h2>
 <p>分析 pilot 运行时内存占用大的原因
 ##用法</p>
-<ul>
-<li>生成 profile file</li>
-</ul>
+<h4 id="生成-profile-file">生成 profile file</h4>
 <div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -212,9 +214,7 @@
 <span style="color:#000;font-weight:bold">(</span>pprof<span style="color:#000;font-weight:bold">)</span>web  //打开web页面
 </code></pre></td></tr></table>
 </div>
-</div><ul>
-<li>比较两个文件,常用在资源发生变化时比较消耗的原因</li>
-</ul>
+</div><h4 id="比较两个文件常用在资源发生变化时比较消耗的原因">比较两个文件,常用在资源发生变化时比较消耗的原因</h4>
 <div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -223,9 +223,7 @@
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">go tool pprof --base 002.pb.gz .pb.gz
 </code></pre></td></tr></table>
 </div>
-</div><ul>
-<li>直接分析某个文件</li>
-</ul>
+</div><h4 id="直接分析某个文件">直接分析某个文件</h4>
 <div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
