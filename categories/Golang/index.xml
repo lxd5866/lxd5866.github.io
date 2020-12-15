@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>Golang pprof 调试</title>
+      <link>https://lxd5866.github.io/post/2020-12-14-2/</link>
+      <pubDate>Mon, 14 Dec 2020 22:47:11 +0800</pubDate>
+      
+      <guid>https://lxd5866.github.io/post/2020-12-14-2/</guid>
+      <description>背景 分析 pilot 运行时内存占用大的原因 用法 生成 profile file 1 2 3 4 5 6 7 go tool pprof -inuse_space http://app_ip:port/debug/pprof/heap //文件会生产到 /Users/用户名/pprof/下 (pprof) (pprof)nodefraction=0.05 //过滤数量 (pprof) (pprof)sample_index=inuse_space // 切换 [alloc_objects alloc_space inuse_objects inuse_space] (pprof)web //打开web页面 比较两个文件,常用在资源发生变化时比较消耗的原因 1 go tool pprof --base 002.pb.gz .pb.gz 直接分析某个文件 1 2 //可以查看各种图表 so</description>
+    </item>
+    
+    <item>
       <title>Envoy proto 生成 go-control-plane</title>
       <link>https://lxd5866.github.io/post/2020-12-14-1/</link>
       <pubDate>Mon, 14 Dec 2020 21:47:11 +0800</pubDate>
@@ -32,15 +41,6 @@
       
       <guid>https://lxd5866.github.io/post/2020-12-09-3/</guid>
       <description>Go插件plugin 背景 项目需要在不给项目源码的情况下，给三方做拓展。实现方案是通过配置，加载plugin，调用约定好的方法实现特定的业务场景 原文地址 1. Go plugin是什么 Go 1.8版本开始提供了一个创建共享库的新工具,称为 Plugins. A plugin is a Go main package with exported functions and variables that has been built with: go build -buildmode=plugin Plugin插件</description>
-    </item>
-    
-    <item>
-      <title>Golang pprof 调试</title>
-      <link>https://lxd5866.github.io/post/2020-12-14-2/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://lxd5866.github.io/post/2020-12-14-2/</guid>
-      <description>背景 分析 pilot 运行时内存占用大的原因 用法 生成 profile file 1 2 3 4 5 6 7 go tool pprof -inuse_space http://app_ip:port/debug/pprof/heap //文件会生产到 /Users/用户名/pprof/下 (pprof) (pprof)nodefraction=0.05 //过滤数量 (pprof) (pprof)sample_index=inuse_space // 切换 [alloc_objects alloc_space inuse_objects inuse_space] (pprof)web //打开web页面 比较两个文件,常用在资源发生变化时比较消耗的原因 1 go tool pprof --base 002.pb.gz .pb.gz 直接分析某个文件 1 2 //可以查看各种图表 so</description>
     </item>
     
   </channel>

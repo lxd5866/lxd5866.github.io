@@ -98,6 +98,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://lxd5866.github.io/post/2020-12-14-2/" title="Golang pprof 调试">Golang pprof 调试</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年12月14日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Golang'>Golang</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            背景 分析 pilot 运行时内存占用大的原因 用法 生成 profile file 1 2 3 4 5 6 7 go tool pprof -inuse_space http://app_ip:port/debug/pprof/heap //文件会生产到 /Users/用户名/pprof/下 (pprof) (pprof)nodefraction=0.05 //过滤数量 (pprof) (pprof)sample_index=inuse_space // 切换 [alloc_objects alloc_space inuse_objects inuse_space] (pprof)web //打开web页面 比较两个文件,常用在资源发生变化时比较消耗的原因 1 go tool pprof --base 002.pb.gz .pb.gz 直接分析某个文件 1 2 //可以查看各种图表 so……
+        </div>
+        <p class="readmore"><a href="https://lxd5866.github.io/post/2020-12-14-2/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://lxd5866.github.io/post/2020-12-14-1/" title="Envoy proto 生成 go-control-plane">Envoy proto 生成 go-control-plane</a>
             </h1>
         </header>
@@ -274,31 +299,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://lxd5866.github.io/post/2020-12-14-2/" title="Golang pprof 调试">Golang pprof 调试</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            1年1月1日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/Golang'>Golang</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            背景 分析 pilot 运行时内存占用大的原因 用法 生成 profile file 1 2 3 4 5 6 7 go tool pprof -inuse_space http://app_ip:port/debug/pprof/heap //文件会生产到 /Users/用户名/pprof/下 (pprof) (pprof)nodefraction=0.05 //过滤数量 (pprof) (pprof)sample_index=inuse_space // 切换 [alloc_objects alloc_space inuse_objects inuse_space] (pprof)web //打开web页面 比较两个文件,常用在资源发生变化时比较消耗的原因 1 go tool pprof --base 002.pb.gz .pb.gz 直接分析某个文件 1 2 //可以查看各种图表 so……
-        </div>
-        <p class="readmore"><a href="https://lxd5866.github.io/post/2020-12-14-2/">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -358,6 +358,10 @@
     </li>
     
     <li>
+        <a href="https://lxd5866.github.io/post/2020-12-14-2/" title="Golang pprof 调试">Golang pprof 调试</a>
+    </li>
+    
+    <li>
         <a href="https://lxd5866.github.io/post/2020-12-14-1/" title="Envoy proto 生成 go-control-plane">Envoy proto 生成 go-control-plane</a>
     </li>
     
@@ -387,10 +391,6 @@
     
     <li>
         <a href="https://lxd5866.github.io/post/about/" title="关于">关于</a>
-    </li>
-    
-    <li>
-        <a href="https://lxd5866.github.io/post/2020-12-14-2/" title="Golang pprof 调试">Golang pprof 调试</a>
     </li>
     
 </ul>
