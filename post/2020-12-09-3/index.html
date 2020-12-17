@@ -69,121 +69,7 @@
                 <div class="col-8" id="main">
                     
 <div class="res-cons">
-    <style type="text/css">
-    .post-toc {
-        position: fixed;
-        width: 200px;
-        margin-left: -210px;
-        padding: 5px 10px;
-        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
-        font-size: 12px;
-        border: 1px solid rgba(0, 0, 0, .07);
-        border-radius: 5px;
-        background-color: rgba(255, 255, 255, 0.98);
-        background-clip: padding-box;
-        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
-        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
-        word-wrap: break-word;
-        white-space: nowrap;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        z-index: 999;
-        cursor: pointer;
-        max-height: 70%;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-
-    .post-toc .post-toc-title {
-        width: 100%;
-        margin: 0 auto;
-        font-size: 20px;
-        font-weight: 400;
-        text-transform: uppercase;
-        text-align: center;
-    }
-
-    .post-toc .post-toc-content {
-        font-size: 15px;
-    }
-
-    .post-toc .post-toc-content>nav>ul {
-        margin: 10px 0;
-    }
-
-    .post-toc .post-toc-content ul {
-        padding-left: 20px;
-        list-style: square;
-        margin: 0.5em;
-        line-height: 1.8em;
-    }
-
-    .post-toc .post-toc-content ul ul {
-        padding-left: 15px;
-        display: none;
-    }
-
-    @media print,
-    screen and (max-width:1057px) {
-        .post-toc {
-            display: none;
-        }
-    }
-</style>
-<div class="post-toc" style="position: absolute; top: 188px;">
-    <h2 class="post-toc-title">文章目录</h2>
-    <div class="post-toc-content">
-        <nav id="TableOfContents">
-  <ul>
-    <li><a href="#go插件plugin">Go插件plugin</a></li>
-    <li><a href="#1-go-plugin是什么">1. Go plugin是什么</a></li>
-    <li><a href="#2-go-plugin生命周期">2. Go plugin生命周期</a></li>
-    <li><a href="#3-go-plugin应用场景">3. Go plugin应用场景</a></li>
-    <li><a href="#4-go-plugin-示例">4. Go plugin 示例</a>
-      <ul>
-        <li><a href="#41-编写插件plugin代码">4.1 编写插件plugin代码</a></li>
-        <li><a href="#42-使用plugin插件">4.2 使用plugin插件</a></li>
-        <li><a href="#43-build-plugin程序">4.3 build plugin程序</a></li>
-        <li><a href="#44-go-run">4.4 go run</a></li>
-      </ul>
-    </li>
-    <li><a href="#5go语言plugin局限和不足">5.Go语言plugin局限和不足</a>
-      <ul>
-        <li><a href="#51-go版本兼容问题">5.1 Go版本兼容问题</a></li>
-      </ul>
-    </li>
-    <li><a href="#6-总结">6. 总结</a></li>
-  </ul>
-</nav>
-    </div>
-</div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        var postToc = $(".post-toc");
-        if (postToc.length) {
-            var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
-            }
-
-            var t = postToc.offset().top - 20,
-                a = {
-                    start: {
-                        position: "absolute",
-                        top: t
-                    },
-                    process: {
-                        position: "fixed",
-                        top: 20
-                    },
-                };
-            $(window).scroll(function () {
-                var e = $(window).scrollTop();
-                e < t ? postToc.css(a.start) : postToc.css(a.process)
-            })
-        }
-    })
-</script>
+    
     <article class="post">
         <header>
             <h1 class="post-title">Go插件plugin</h1>
@@ -471,9 +357,6 @@ use_plugin_example: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dyna
             <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
         </div>
         <div class="github-badge">
-            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
-        </div>
-        <div class="github-badge">
             <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
         </div>
     </div>
@@ -612,7 +495,11 @@ use_plugin_example: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dyna
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="https://lxd5866.github.io/" title="沧海的博客">沧海的博客</a>
+            <a target="_blank" href="mailto:lxd5866@gmail.com" title="联系我">邮箱</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://github.com/lxd5866" title="github">github</a>
         </li>
         
     </ul>
