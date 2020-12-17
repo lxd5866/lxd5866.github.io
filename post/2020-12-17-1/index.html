@@ -9,20 +9,20 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
     
 
-    <title>minikube 加速 | 沧海的博客</title>
-    <meta property="og:title" content="minikube 加速 - 沧海的博客">
+    <title>2020 年 - 年度总结 | 沧海的博客</title>
+    <meta property="og:title" content="2020 年 - 年度总结 - 沧海的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content='2020-12-02T01:08:50&#43;08:00'>
+    <meta property="article:published_time" content='2020-12-17T21:57:38&#43;08:00'>
         
         
-    <meta property="article:modified_time" content='2020-12-02T01:08:50&#43;08:00'>
+    <meta property="article:modified_time" content='2020-12-17T21:57:38&#43;08:00'>
         
     <meta name="Keywords" content="golang,go语言,go语言笔记,沧海,xudong,旭东,kubernetes,istio,mesh,service mesh,yaml">
-    <meta name="description" content="minikube 加速">
+    <meta name="description" content="2020 年 - 年度总结">
         
     <meta name="author" content="沧海">
-    <meta property="og:url" content="https://lxd5866.github.io/post/2020-12-02-1/">
+    <meta property="og:url" content="https://lxd5866.github.io/post/2020-12-17-1/">
     <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
@@ -135,9 +135,12 @@
     <div class="post-toc-content">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#minikube--使用--加速">minikube  使用 &amp; 加速</a>
+    <li><a href="#2020-年总结">2020 年总结</a>
       <ul>
-        <li></li>
+        <li><a href="#这一年的进展">这一年的进展</a></li>
+        <li><a href="#istio-在国内的现状">istio 在国内的现状</a></li>
+        <li><a href="#istio-的未来">istio 的未来</a></li>
+        <li><a href="#未来一年">未来一年</a></li>
       </ul>
     </li>
   </ul>
@@ -173,11 +176,20 @@
 </script>
     <article class="post">
         <header>
-            <h1 class="post-title">minikube 加速</h1>
+            <h1 class="post-title">2020 年 - 年度总结</h1>
         </header>
         <date class="post-meta meta-date">
-            2020年12月2日
+            2020年12月17日
         </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Golang'>Golang</a></span>
+            
+            <span class="meta-category"><a href='/categories/istio'>istio</a></span>
+            
+        </div>
         
         
         <div class="post-meta">
@@ -187,37 +199,66 @@
         
         
         <div class="post-content">
-            <h2 id="minikube--使用--加速">minikube  使用 &amp; 加速</h2>
-<h4 id="背景">背景</h4>
-<p><a href="https://github.com/kubernetes/minikube">minikibe</a> 是由谷歌官方的，k8s本地模拟环境，主要用作 k8s 的环境测试工作。</p>
-<pre><code>minikube implements a local Kubernetes cluster on macOS, Linux, and Windows. minikube's primary goals are to be the best tool for local Kubernetes application development and to support all Kubernetes features that fit.
-</code></pre><h4 id="安装">安装</h4>
-<pre><code>brew install minikube
-</code></pre><p>brew 可以使用清华源加速</p>
-<h4 id="使用">使用</h4>
-<p>一般情况下</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">//加速，建议使用自己的加速起，不推荐使用阿里源
-//速度由梯子决定
-<span style="color:#0086b3">export</span> <span style="color:#008080">HTTP_PROXY</span><span style="color:#000;font-weight:bold">=</span>http://127.0.0.1:20880
-<span style="color:#0086b3">export</span> <span style="color:#008080">HTTPS_PROXY</span><span style="color:#000;font-weight:bold">=</span>http://127.0.0.1:20880
-<span style="color:#0086b3">export</span> <span style="color:#008080">NO_PROXY</span><span style="color:#000;font-weight:bold">=</span>localhost,127.0.0.1,10.96.0.0/12,192.168.99.0/24,192.168.39.0/24
-//启动
-minikube start <span style="color:#008080">driver</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;hyperkit&#39;</span> --cpus<span style="color:#000;font-weight:bold">=</span><span style="color:#099">2</span> --memory<span style="color:#000;font-weight:bold">=</span>4G
-</code></pre></td></tr></table>
-</div>
-</div><p><a href="https://minikube.sigs.k8s.io/docs/handbook/controls/">minikube 官方参考文档</a></p>
-<p><a href="https://minikube.sigs.k8s.io/docs/handbook/vpn_and_proxy/">minikube proxy 文档</a></p>
+            <h2 id="2020-年总结">2020 年总结</h2>
+<p>回顾2020年的经历，感觉有些颓废。最近在找工作，这种颓废的气氛也有点影响。自己没想通，
+我一个2B青年哪来的多愁善感，直到恒生电子的面试官说了一句，自己开公司那啊，这两年都荒废了是吧，才猛然醒悟，
+这浑浑噩噩的状态，从说出：<code>既然公司方向变了不做技术，那我退出吧</code>开始的。</p>
+<h3 id="这一年的进展">这一年的进展</h3>
+<p>这一年开始是在 <code>典韦</code> 团队中做service mesh 在阿里主站的落地，后续（10月后）和 <code>薯片</code>一起做 service mesh的商业化输出。
+在做 serviceMesh 过程中学了很多东西，感谢 <code>典韦</code>,<code>熊啸</code>,<code>艺刚</code>,<code>夜枫</code>,<code>心水</code>,<code>薯片</code>,<code>世明</code>,<code>鑫涛</code>等各位大哥对工作的支持，受益良多。</p>
+<h3 id="istio-在国内的现状">istio 在国内的现状</h3>
+<p>开始接触到 serviceMesh 和 istio 是在2017年前后，当时萤石商场在做微服务化改造，开始学习微服务相关概念。
+开始的时候是看<code>海峰</code> 和 <code>高华</code>在做订单模块的拆分，不算特别顺利，感觉还挺麻烦的。后来加入了一个java团队的小伙伴，
+开始使用 springcloud 拆分服务，我负责给他们上线做原逻辑的对接，并帮助打包镜像和与运维沟通上线，这个时候开始实际接触spring cloud。</p>
+<p>初期觉得 spring cloud 比较合适，微服务需要的组件丰富，社区活跃，文档齐全。后来接触了 istio
+感觉这个项目价值更大。<!-- raw HTML omitted -->istio 提供了语言无关的 serviceMesh 基础能力解决方案<!-- raw HTML omitted -->，对业务代码无侵入，对语言无要求。</p>
+<p>所以今年就找了一个 istio 相关的工作，但实操起来发现事情远比想象的复杂。总结一下归纳为以下这些方面</p>
+<ol>
+<li>对原项目改动大，与传统 <!-- raw HTML omitted -->注册中心<!-- raw HTML omitted --> 的微服务方案不兼容，导致项目落地推进异常困难。</li>
+<li>service Mesh团队 与 原<code>业务团队</code>是独立的，沟通成本较高切不能相互指挥。传统微服务技术站积累深厚，java大法好在想要用什么都用。</li>
+<li>迁移存在 比较大的潜在风险，<!-- raw HTML omitted -->是否能保证稳定<!-- raw HTML omitted -->，特高并发下的安全性，配置下发的稳定性，服务发现的稳定性等。这些都是微服务的核心模块，
+dubbo 可以说我是经历过N个双11的老光棍，istio不行。</li>
+<li>最核心的一个点： <!-- raw HTML omitted --> 没有一个非 istio 不可的理由<!-- raw HTML omitted -->,不能强制推进老业务往istio技术站转。</li>
+</ol>
+<h3 id="istio-的未来">istio 的未来</h3>
+<p>自1.5 版本后，istio 社区在往更加简单的商业化落地转变，这是一个好现象。但是要在商业上大规模使用在简单性和易用性上还需要做很多工作。
+dubbo 其实只是一个简单的rpc框架，不是一个 &ldquo;称职&rdquo; 的serviceMesh 框架，但是之所以能在国内火起来，感觉有两方面原因：</p>
+<ul>
+<li>简单易用，学习成本不高</li>
+<li>可以在当时解决服务拆分的问题</li>
+</ul>
+<p>istio 其实是一整套 serviceMesh 全功能的解决方案，功能很全，但是在落地中会存在几个比较难受的点：</p>
+<ul>
+<li>dubbo系老应用需要重新适配，推进老业务团队重构需要解决<!-- raw HTML omitted -->业务价值<!-- raw HTML omitted --> 和 <!-- raw HTML omitted -->业务风险<!-- raw HTML omitted -->的问题</li>
+<li>sidecar 模式愿景很好，但是学习成本较高</li>
+<li>istio现在没有一个类似 dubbo admin 统一后台</li>
+<li>没有统一的 服务注册发现 和 可用性监控</li>
+<li>没有类 swagger 的微服务聚合文档解决方案</li>
+</ul>
+<p>不过也有对应的一些解决方案，只是心智成本比较高。现在的编程环境，<!-- raw HTML omitted -->心智成本越高，推广使用结果越差<!-- raw HTML omitted -->，
+90%的程序员其实在90%的时间里不愿去想为什么，机械性的重复才是最简单高效的。<!-- raw HTML omitted -->一个框架如果要大规模推广，一定要做到足够简单。<!-- raw HTML omitted -->
+技术有风险其实都能接受，毕竟jvm以前也会炸，也没有阻碍java遍地开花。</p>
+<p>这一年点的主要技能点</p>
+<ul>
+<li>golang : 未来开发的核心工具之一，云原生时代最具价值语言之一，虽然gc有时候有点坑，但还是加油fighting。</li>
+<li>istio : 会努力参与istio社区的发展，现在准入门槛有点高，希望通过自己的努力，能更加简单易用，适合大规模推广。</li>
+<li>k8s : 云原生基础设施,现在版本（1.20）未来会剔除dockerslim,后续cri-o、containerd 和 kata可能会上位，
+比较看好containerd，kata有点不温不火。后面也会参与社区的开发，有机会的话提提pr（概念代码啥的更新有点快，有点跟不住）</li>
+<li>mosn/envoy : mosn可以看未来的发展，envoy就随缘了，逼近不懂c++</li>
+</ul>
+<h3 id="未来一年">未来一年</h3>
+<p>希望在以下方面有所建树</p>
+<ul>
+<li>k8s ： 老朋友了不能丢，希望能参与社区开发，提提pr。</li>
+<li>istio ： 老朋友了不能丢，希望能参与社区开发，提提pr，提高易用性。</li>
+<li>rust ： 一直做着一个自己写个操作系统干死微软的梦，rust可能是现代化的c++,恰巧今天华为公布了鸿蒙2.0beta, 恰巧前几天
+centos8官宣迁移到cent steam os, 恰巧美国和中国大贸易战，恰巧&hellip;.地球还没和火星撞一起我还有机会～</li>
+</ul>
+<p>新的一年，和那个浑浑噩噩惴惴不安的自己说句再见，世界很大造起来。</p>
+<blockquote>
+<p>旅行的意义，在于沿途的风景，在于看风景的心情。</p>
+<p>世界的美好，在于发现的眼睛，在于未封闭的心灵。</p>
+</blockquote>
 
         </div>
 
@@ -230,9 +271,15 @@ minikube start <span style="color:#008080">driver</span><span style="color:#000;
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/post/2020-11-24-1/">使用zap接收gin框架默认的日志并配置日志归档</a></li>
+        <li><a href="/post/2020-12-14-3/">pilot 压力测试【小记】</a></li>
         
-        <li><a href="/post/about/">关于</a></li>
+        <li><a href="/post/2020-12-14-2/">Golang pprof 调试</a></li>
+        
+        <li><a href="/post/2020-12-14-1/">Envoy proto 生成 go-control-plane</a></li>
+        
+        <li><a href="/post/2020-12-09-3/">Go插件plugin</a></li>
+        
+        <li><a href="/post/2020-12-07-1/">helm3 和 kustomize </a></li>
         
     </ul>
 </div>
@@ -242,9 +289,7 @@ minikube start <span style="color:#008080">driver</span><span style="color:#000;
             
             <ul class="clearfix">
                 
-                <li><a href='/tags/Golang'>Golang</a></li>
-                
-                <li><a href='/tags/k8s'>k8s</a></li>
+                <li><a href='/tags/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93'>年度总结</a></li>
                 
             </ul>
             
